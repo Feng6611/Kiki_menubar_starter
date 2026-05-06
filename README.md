@@ -14,9 +14,10 @@ A minimal macOS menu bar app starter built on [Kiki_mackit](https://github.com/F
 
 ## Technical Choices
 
-- Xcode macOS SwiftUI app: easiest path for a real starter that opens directly in Xcode and builds like a normal app.
+- Xcode macOS SwiftUI app: easiest path for a real starter that opens in Xcode and builds like a normal app.
 - AppKit menu bar controller: `NSStatusItem` behavior belongs in AppKit, while SwiftUI owns windows and reusable panes.
-- `Kiki_mackit` exact tag dependency: the starter remains stable and cloneable; upgrade deliberately when Kiki changes.
+- `Kiki_mackit` 0.3.0 dependency: UI packages only, with commerce split out.
+- `RevenueCatCommerceKit` 0.1.0 dependency: purchase transport is available from the standalone commerce package instead of from `Kiki_mackit`.
 - Mock entitlement instead of RevenueCat: the starter stays usable without API keys, products, or App Store setup.
 - Small config-first surface: most project-specific changes should happen in `StarterAppConfig`.
 
@@ -32,8 +33,8 @@ Open `KikiMenubarStarter.xcodeproj` in Xcode and run the `KikiMenubarStarter` sc
 
 - Keep `StarterPaywallView` as the UI shell.
 - Replace `MockEntitlementStore` with your real store.
-- Add `RevenueCatCommerceKit` from `Kiki_mackit` to the app target.
-- Map real products into `StarterPlanConfig` or directly into `KikiPaywallPlan`.
+- Use the app target's standalone `RevenueCatCommerceKit` dependency.
+- Map real products into `StarterPlanConfig` or into `KikiPaywallPlan`.
 - Move API keys, entitlement ids, and product ids into your app-specific config, not into Kiki packages.
 
 ## Upgrade Kiki

@@ -20,6 +20,7 @@
 		A0010000000000000000000B /* KikiSettings in Frameworks */ = {isa = PBXBuildFile; productRef = A00B00000000000000000001 /* KikiSettings */; };
 		A0010000000000000000000C /* KikiMenuBar in Frameworks */ = {isa = PBXBuildFile; productRef = A00B00000000000000000002 /* KikiMenuBar */; };
 		A0010000000000000000000D /* KikiPaywall in Frameworks */ = {isa = PBXBuildFile; productRef = A00B00000000000000000003 /* KikiPaywall */; };
+		A0010000000000000000000E /* RevenueCatCommerceKit in Frameworks */ = {isa = PBXBuildFile; productRef = A00B00000000000000000004 /* RevenueCatCommerceKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,11 +50,12 @@
 		A00600000000000000000001 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
-			files = (
-				A00100000000000000000008 /* KikiSettings in Frameworks */,
-				A00100000000000000000009 /* KikiMenuBar in Frameworks */,
-				A0010000000000000000000A /* KikiPaywall in Frameworks */,
-			);
+				files = (
+					A00100000000000000000008 /* KikiSettings in Frameworks */,
+					A00100000000000000000009 /* KikiMenuBar in Frameworks */,
+					A0010000000000000000000A /* KikiPaywall in Frameworks */,
+					A0010000000000000000000E /* RevenueCatCommerceKit in Frameworks */,
+				);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		A00600000000000000000002 /* Frameworks */ = {
@@ -125,11 +127,12 @@
 			dependencies = (
 			);
 			name = KikiMenubarStarter;
-			packageProductDependencies = (
-				A00B00000000000000000001 /* KikiSettings */,
-				A00B00000000000000000002 /* KikiMenuBar */,
-				A00B00000000000000000003 /* KikiPaywall */,
-			);
+				packageProductDependencies = (
+					A00B00000000000000000001 /* KikiSettings */,
+					A00B00000000000000000002 /* KikiMenuBar */,
+					A00B00000000000000000003 /* KikiPaywall */,
+					A00B00000000000000000004 /* RevenueCatCommerceKit */,
+				);
 			productName = KikiMenubarStarter;
 			productReference = A00200000000000000000008 /* KikiMenubarStarter.app */;
 			productType = "com.apple.product-type.application";
@@ -185,9 +188,10 @@
 				Base,
 			);
 			mainGroup = A00700000000000000000001;
-			packageReferences = (
+				packageReferences = (
 				A00D00000000000000000001 /* XCRemoteSwiftPackageReference "Kiki_mackit" */,
-			);
+					A00D00000000000000000002 /* XCRemoteSwiftPackageReference "RevenueCatCommerceKit" */,
+				);
 			productRefGroup = A00700000000000000000004 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -473,7 +477,15 @@
 			repositoryURL = "https://github.com/Feng6611/Kiki_mackit";
 			requirement = {
 				kind = exactVersion;
-				version = 0.2.0;
+				version = 0.3.0;
+			};
+		};
+		A00D00000000000000000002 /* XCRemoteSwiftPackageReference "RevenueCatCommerceKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Feng6611/RevenueCatCommerceKit";
+			requirement = {
+				kind = exactVersion;
+				version = 0.1.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -493,6 +505,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A00D00000000000000000001 /* XCRemoteSwiftPackageReference "Kiki_mackit" */;
 			productName = KikiPaywall;
+		};
+		A00B00000000000000000004 /* RevenueCatCommerceKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A00D00000000000000000002 /* XCRemoteSwiftPackageReference "RevenueCatCommerceKit" */;
+			productName = RevenueCatCommerceKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

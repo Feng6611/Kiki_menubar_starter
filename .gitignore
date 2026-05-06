@@ -3,3 +3,7 @@ DerivedData/
 build/
 *.xcuserstate
 xcuserdata/
+
+# Claude/Codex local overrides
+.claude/settings.local.json
+settings.local.json
