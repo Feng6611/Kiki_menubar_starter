@@ -189,7 +189,7 @@
 			);
 			mainGroup = A00700000000000000000001;
 				packageReferences = (
-				A00D00000000000000000001 /* XCRemoteSwiftPackageReference "Kiki_mackit" */,
+					A00D00000000000000000001 /* XCLocalSwiftPackageReference "../Kiki_mackit" */,
 					A00D00000000000000000002 /* XCRemoteSwiftPackageReference "RevenueCatCommerceKit" */,
 				);
 			productRefGroup = A00700000000000000000004 /* Products */;
@@ -471,15 +471,14 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		A00D00000000000000000001 /* XCRemoteSwiftPackageReference "Kiki_mackit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Feng6611/Kiki_mackit";
-			requirement = {
-				kind = exactVersion;
-				version = 0.3.0;
-			};
+/* Begin XCLocalSwiftPackageReference section */
+		A00D00000000000000000001 /* XCLocalSwiftPackageReference "../Kiki_mackit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../Kiki_mackit;
 		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCRemoteSwiftPackageReference section */
 		A00D00000000000000000002 /* XCRemoteSwiftPackageReference "RevenueCatCommerceKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Feng6611/RevenueCatCommerceKit";
@@ -493,17 +492,17 @@
 /* Begin XCSwiftPackageProductDependency section */
 		A00B00000000000000000001 /* KikiSettings */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A00D00000000000000000001 /* XCRemoteSwiftPackageReference "Kiki_mackit" */;
+			package = A00D00000000000000000001 /* XCLocalSwiftPackageReference "../Kiki_mackit" */;
 			productName = KikiSettings;
 		};
 		A00B00000000000000000002 /* KikiMenuBar */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A00D00000000000000000001 /* XCRemoteSwiftPackageReference "Kiki_mackit" */;
+			package = A00D00000000000000000001 /* XCLocalSwiftPackageReference "../Kiki_mackit" */;
 			productName = KikiMenuBar;
 		};
 		A00B00000000000000000003 /* KikiPaywall */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A00D00000000000000000001 /* XCRemoteSwiftPackageReference "Kiki_mackit" */;
+			package = A00D00000000000000000001 /* XCLocalSwiftPackageReference "../Kiki_mackit" */;
 			productName = KikiPaywall;
 		};
 		A00B00000000000000000004 /* RevenueCatCommerceKit */ = {

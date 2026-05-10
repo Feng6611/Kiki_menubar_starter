@@ -29,6 +29,12 @@ enum StarterSettingsTab: String, CaseIterable, Identifiable {
             return "info.circle"
         }
     }
+
+    static var kikiTabs: [KikiSettingsTabSpec<StarterSettingsTab>] {
+        allCases.map { tab in
+            KikiSettingsTabSpec(tab, title: tab.title, systemImage: tab.systemImage)
+        }
+    }
 }
 
 struct StarterSettingsView: View {
@@ -37,38 +43,44 @@ struct StarterSettingsView: View {
     @StateObject private var navigation = KikiSettingsNavigationModel<StarterSettingsTab>(selectedTab: .general)
 
     var body: some View {
-        TabView(selection: $navigation.selectedTab) {
-            generalPane
-                .tabItem { Label(StarterSettingsTab.general.title, systemImage: StarterSettingsTab.general.systemImage) }
-                .tag(StarterSettingsTab.general)
-
-            accountPane
-                .tabItem { Label(StarterSettingsTab.account.title, systemImage: StarterSettingsTab.account.systemImage) }
-                .tag(StarterSettingsTab.account)
-
-            aboutPane
-                .tabItem { Label(StarterSettingsTab.about.title, systemImage: StarterSettingsTab.about.systemImage) }
-                .tag(StarterSettingsTab.about)
+        KikiSettingsShell(
+            selection: $navigation.selectedTab,
+            tabs: StarterSettingsTab.kikiTabs
+        ) { tab in
+            switch tab {
+            case .general:
+                generalPane
+            case .account:
+                accountPane
+            case .about:
+                aboutPane
+            }
         }
-        .padding(20)
-        .frame(width: 520, height: 360)
     }
 
     private var generalPane: some View {
-        KikiSettingsUI.FormPane {
+        KikiSettingsPane {
             Section("Startup") {
                 LaunchAtLogin.Toggle("Launch at Login")
             }
 
             Section("Status") {
-                LabeledContent("Menu bar title", value: config.statusItemTitle)
-                LabeledContent("Entitlement", value: entitlementStore.snapshot.accountStatus)
+                KikiSettingsStatusRow(
+                    title: "Menu bar title",
+                    value: config.statusItemTitle,
+                    systemImage: "menubar.rectangle"
+                )
+                KikiSettingsStatusRow(
+                    title: "Entitlement",
+                    value: entitlementStore.snapshot.accountStatus,
+                    systemImage: "person.crop.circle"
+                )
             }
         }
     }
 
     private var accountPane: some View {
-        KikiSettingsUI.FormPane {
+        KikiSettingsPane {
             Section("Mock Entitlement") {
                 Toggle("Pro enabled", isOn: Binding(
                     get: { entitlementStore.isPro },
@@ -87,31 +99,33 @@ struct StarterSettingsView: View {
     }
 
     private var aboutPane: some View {
-        VStack(spacing: 18) {
-            KikiSettingsUI.AppIdentityView(
-                appName: config.appName,
-                versionText: "Starter 1.0"
+        KikiAboutPane(
+            appName: config.appName,
+            versionText: "Starter 1.0"
+        ) {
+            KikiSettingsStatusRow(
+                title: "Status",
+                value: entitlementStore.snapshot.accountStatus,
+                systemImage: "heart.circle"
             )
-
-            KikiSettingsUI.FormPane {
-                Section("Links") {
-                    KikiSettingsUI.LinkButton(
-                        title: "Kiki_mackit",
-                        urlString: config.supportURL,
-                        systemImage: "shippingbox"
-                    )
-                    KikiSettingsUI.LinkButton(
-                        title: "Starter repository",
-                        urlString: config.repositoryURL,
-                        systemImage: "chevron.left.forwardslash.chevron.right"
-                    )
-                    KikiSettingsUI.CopyRow(
-                        title: "Bundle ID",
-                        value: "com.kiki.menubarstarter",
-                        systemImage: "number"
-                    )
-                }
-            }
+        } links: {
+            KikiSettingsLinkRow(
+                title: "Kiki_mackit",
+                value: "Package",
+                urlString: config.supportURL,
+                systemImage: "shippingbox"
+            )
+            KikiSettingsLinkRow(
+                title: "Starter repository",
+                value: "GitHub",
+                urlString: config.repositoryURL,
+                systemImage: "chevron.left.forwardslash.chevron.right"
+            )
+            KikiSettingsCopyRow(
+                title: "Bundle ID",
+                value: "com.kiki.menubarstarter",
+                systemImage: "number"
+            )
         }
     }
 }

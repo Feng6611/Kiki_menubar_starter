@@ -2,15 +2,6 @@
   "originHash" : "cf8290a3dd64464c873040ced11f59832641e3cf88e09390a17aa00806eddbfd",
   "pins" : [
     {
-      "identity" : "kiki_mackit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Feng6611/Kiki_mackit",
-      "state" : {
-        "revision" : "cc494bac8f51395b49ece29fe66bec31995629ba",
-        "version" : "0.3.0"
-      }
-    },
-    {
       "identity" : "purchases-ios-spm",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/RevenueCat/purchases-ios-spm.git",

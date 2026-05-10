@@ -24,7 +24,10 @@ final class StarterAppDelegate: NSObject, NSApplicationDelegate {
 
     private let settingsWindowController = KikiSettingsWindowController(
         frameAutosaveName: "KikiMenubarStarter.SettingsWindow",
-        minimumContentSize: CGSize(width: 520, height: 360),
+        minimumContentSize: CGSize(
+            width: KikiSettingsDefaults.minimumWindowWidth,
+            height: KikiSettingsDefaults.minimumWindowHeight
+        ),
         windowTitle: "Settings"
     )
     private lazy var settingsOpener = KikiSettingsOpener(windowController: settingsWindowController)

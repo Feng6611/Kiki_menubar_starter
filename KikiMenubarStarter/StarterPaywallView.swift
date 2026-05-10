@@ -56,16 +56,16 @@ struct StarterPaywallView: View {
     }
 
     var body: some View {
-        VStack(spacing: 22) {
-            VStack(spacing: 8) {
-                Text(config.appName)
-                    .font(.system(size: 28, weight: .bold, design: .rounded))
-                Text(entitlementStore.isPro ? "Pro is active" : "Unlock the reusable menu bar app flow")
-                    .font(.callout)
-                    .foregroundStyle(.secondary)
-                    .multilineTextAlignment(.center)
-            }
-
+        KikiPaywallShell(
+            width: 520,
+            height: 620,
+            horizontalPadding: 28
+        ) {
+            KikiPaywallHeader(
+                title: config.appName,
+                subtitle: entitlementStore.isPro ? "Pro is active" : "Unlock the reusable menu bar app flow"
+            )
+        } content: {
             HStack(spacing: 12) {
                 ForEach(config.stats, id: \.label) { stat in
                     KikiPaywallStatItem(value: stat.value, label: stat.label)
@@ -87,7 +87,7 @@ struct StarterPaywallView: View {
                     )
                 }
             }
-
+        } actions: {
             Button {
                 purchaseSelectedPlan()
             } label: {
@@ -111,9 +111,9 @@ struct StarterPaywallView: View {
             }
             .buttonStyle(.plain)
             .disabled(entitlementStore.isPro)
+        } footer: {
+            EmptyView()
         }
-        .padding(28)
-        .frame(width: 520, height: 620)
     }
 
     private func purchaseSelectedPlan() {

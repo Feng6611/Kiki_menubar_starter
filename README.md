@@ -37,6 +37,29 @@ Open `KikiMenubarStarter.xcodeproj` in Xcode and run the `KikiMenubarStarter` sc
 - Map real products into `StarterPlanConfig` or into `KikiPaywallPlan`.
 - Move API keys, entitlement ids, and product ids into your app-specific config, not into Kiki packages.
 
+## Onboarding Paywall Close Semantics
+
+If you add onboarding before the paywall, audit the flow-out paths before
+shipping. A common failure mode is to gate launch on `hasSeenOnboarding == false`
+while only setting that flag after purchase or trial start. Users who close the
+paywall, quit the app mid-flow, restore later, or already have entitlement can
+then see onboarding on every launch.
+
+Keep the completion state in app code:
+
+- Do not mark onboarding complete just because the window was shown.
+- Mark onboarding complete when the user finishes the flow: starts a trial,
+  completes purchase, restores entitlement, or closes the paywall from the
+  onboarding context.
+- Treat the onboarding paywall close button like a skip action. It should call
+  the same app-owned completion method as other onboarding exits, then route to
+  the next host surface such as Settings.
+- Decide intentionally what happens for app quit/relaunch, already-entitled
+  accounts, restore errors, purchase cancellation, and explicit close. Each path
+  should either complete onboarding or leave it pending by design.
+- Keep this routing outside `KikiPaywall`; the Kiki package provides reusable UI
+  atoms, while the starter/app owns persistence and follow-up windows.
+
 ## Upgrade Kiki
 
 - Update the `Kiki_mackit` Swift package requirement in Xcode.
