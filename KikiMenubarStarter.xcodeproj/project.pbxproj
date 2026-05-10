@@ -25,6 +25,10 @@
 		A00100000000000000000010 /* KikiWindow in Frameworks */ = {isa = PBXBuildFile; productRef = A00B00000000000000000006 /* KikiWindow */; };
 		A00100000000000000000011 /* KikiDesign in Frameworks */ = {isa = PBXBuildFile; productRef = A00B00000000000000000005 /* KikiDesign */; };
 		A00100000000000000000012 /* KikiWindow in Frameworks */ = {isa = PBXBuildFile; productRef = A00B00000000000000000006 /* KikiWindow */; };
+		A00100000000000000000013 /* StarterPlanConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0020000000000000000000B /* StarterPlanConfig.swift */; };
+		A00100000000000000000014 /* StarterStatConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0020000000000000000000C /* StarterStatConfig.swift */; };
+		A00100000000000000000015 /* StarterEntitlementSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0020000000000000000000D /* StarterEntitlementSnapshot.swift */; };
+		A00100000000000000000016 /* StarterPaywallAdapters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0020000000000000000000E /* StarterPaywallAdapters.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,16 +42,21 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A00200000000000000000001 /* KikiMenubarStarterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KikiMenubarStarterApp.swift; sourceTree = "<group>"; };
-		A00200000000000000000002 /* StarterAppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarterAppConfig.swift; sourceTree = "<group>"; };
-		A00200000000000000000003 /* MockEntitlementStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockEntitlementStore.swift; sourceTree = "<group>"; };
-		A00200000000000000000004 /* StarterMenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarterMenuModel.swift; sourceTree = "<group>"; };
-		A00200000000000000000005 /* StarterSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarterSettingsView.swift; sourceTree = "<group>"; };
-		A00200000000000000000006 /* StarterPaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarterPaywallView.swift; sourceTree = "<group>"; };
+		A00200000000000000000001 /* KikiMenubarStarterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/KikiMenubarStarterApp.swift; sourceTree = "<group>"; };
+		A00200000000000000000002 /* StarterAppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/StarterAppConfig.swift; sourceTree = "<group>"; };
+		A00200000000000000000003 /* MockEntitlementStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/State/MockEntitlementStore.swift; sourceTree = "<group>"; };
+		A00200000000000000000004 /* StarterMenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/MenuBar/StarterMenuModel.swift; sourceTree = "<group>"; };
+		A00200000000000000000005 /* StarterSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Settings/StarterSettingsView.swift; sourceTree = "<group>"; };
+		A00200000000000000000006 /* StarterPaywallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Paywall/StarterPaywallView.swift; sourceTree = "<group>"; };
 		A00200000000000000000007 /* StarterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarterTests.swift; sourceTree = "<group>"; };
 		A00200000000000000000008 /* KikiMenubarStarter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KikiMenubarStarter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A00200000000000000000009 /* KikiMenubarStarterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KikiMenubarStarterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0020000000000000000000A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		A0020000000000000000000B /* StarterPlanConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Paywall/StarterPlanConfig.swift; sourceTree = "<group>"; };
+		A0020000000000000000000C /* StarterStatConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Paywall/StarterStatConfig.swift; sourceTree = "<group>"; };
+		A0020000000000000000000D /* StarterEntitlementSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/State/StarterEntitlementSnapshot.swift; sourceTree = "<group>"; };
+		A0020000000000000000000E /* StarterPaywallAdapters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Paywall/StarterPaywallAdapters.swift; sourceTree = "<group>"; };
+		A0020000000000000000000F /* Architecture.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Docs/Architecture.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				A0020000000000000000000A /* README.md */,
+				A0070000000000000000000F /* Docs */,
 				A00700000000000000000002 /* KikiMenubarStarter */,
 				A00700000000000000000003 /* KikiMenubarStarterTests */,
 				A00700000000000000000004 /* Products */,
@@ -92,14 +102,82 @@
 		A00700000000000000000002 /* KikiMenubarStarter */ = {
 			isa = PBXGroup;
 			children = (
-				A00200000000000000000001 /* KikiMenubarStarterApp.swift */,
-				A00200000000000000000002 /* StarterAppConfig.swift */,
-				A00200000000000000000003 /* MockEntitlementStore.swift */,
-				A00200000000000000000004 /* StarterMenuModel.swift */,
-				A00200000000000000000005 /* StarterSettingsView.swift */,
-				A00200000000000000000006 /* StarterPaywallView.swift */,
+				A00700000000000000000005 /* App */,
+				A0070000000000000000000A /* Features */,
+				A0070000000000000000000E /* Shared */,
 			);
 			path = KikiMenubarStarter;
+			sourceTree = "<group>";
+		};
+		A00700000000000000000005 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				A00200000000000000000001 /* KikiMenubarStarterApp.swift */,
+				A00700000000000000000006 /* State */,
+			);
+			name = App;
+			sourceTree = "<group>";
+		};
+		A00700000000000000000006 /* State */ = {
+			isa = PBXGroup;
+			children = (
+				A00200000000000000000003 /* MockEntitlementStore.swift */,
+				A0020000000000000000000D /* StarterEntitlementSnapshot.swift */,
+			);
+			name = State;
+			sourceTree = "<group>";
+		};
+		A0070000000000000000000A /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				A0070000000000000000000B /* MenuBar */,
+				A0070000000000000000000C /* Settings */,
+				A0070000000000000000000D /* Paywall */,
+			);
+			name = Features;
+			sourceTree = "<group>";
+		};
+		A0070000000000000000000B /* MenuBar */ = {
+			isa = PBXGroup;
+			children = (
+				A00200000000000000000004 /* StarterMenuModel.swift */,
+			);
+			name = MenuBar;
+			sourceTree = "<group>";
+		};
+		A0070000000000000000000C /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				A00200000000000000000005 /* StarterSettingsView.swift */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		A0070000000000000000000D /* Paywall */ = {
+			isa = PBXGroup;
+			children = (
+				A00200000000000000000006 /* StarterPaywallView.swift */,
+				A0020000000000000000000B /* StarterPlanConfig.swift */,
+				A0020000000000000000000C /* StarterStatConfig.swift */,
+				A0020000000000000000000E /* StarterPaywallAdapters.swift */,
+			);
+			name = Paywall;
+			sourceTree = "<group>";
+		};
+		A0070000000000000000000E /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				A00200000000000000000002 /* StarterAppConfig.swift */,
+			);
+			name = Shared;
+			sourceTree = "<group>";
+		};
+		A0070000000000000000000F /* Docs */ = {
+			isa = PBXGroup;
+			children = (
+				A0020000000000000000000F /* Architecture.md */,
+			);
+			name = Docs;
 			sourceTree = "<group>";
 		};
 		A00700000000000000000003 /* KikiMenubarStarterTests */ = {
@@ -242,6 +320,10 @@
 				A00100000000000000000004 /* StarterMenuModel.swift in Sources */,
 				A00100000000000000000005 /* StarterSettingsView.swift in Sources */,
 				A00100000000000000000006 /* StarterPaywallView.swift in Sources */,
+				A00100000000000000000013 /* StarterPlanConfig.swift in Sources */,
+				A00100000000000000000014 /* StarterStatConfig.swift in Sources */,
+				A00100000000000000000015 /* StarterEntitlementSnapshot.swift in Sources */,
+				A00100000000000000000016 /* StarterPaywallAdapters.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

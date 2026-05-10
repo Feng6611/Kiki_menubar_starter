@@ -21,6 +21,20 @@ A minimal macOS menu bar app starter built on [Kiki_mackit](https://github.com/F
 - Mock entitlement instead of RevenueCat: the starter stays usable without API keys, products, or App Store setup.
 - Small config-first surface: most project-specific changes should happen in `StarterAppConfig`.
 
+## Architecture
+
+The starter uses an app-target structure that can grow into a larger product
+without immediately creating extra packages:
+
+- `App/`: app lifecycle, AppKit glue, and Kiki wiring.
+- `Features/`: settings, menu bar, paywall UI, display config, and Kiki adapters.
+- `Platform/`: optional wrappers for direct macOS services when a product needs them.
+- `Shared/`: app-local configuration, copy, links, and future defaults.
+- `Core/`: optional pure rules only when there is a real platform-free boundary.
+
+See [Docs/Architecture.md](Docs/Architecture.md) for the boundary rules and the
+path toward optional `Platform/` or `Core/` layers when the app actually needs them.
+
 ## Run
 
 ```sh

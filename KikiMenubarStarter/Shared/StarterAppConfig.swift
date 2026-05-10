@@ -1,5 +1,4 @@
 import Foundation
-import KikiPaywall
 
 struct StarterAppConfig: Equatable {
     let appName: String
@@ -45,29 +44,4 @@ struct StarterAppConfig: Equatable {
             StarterStatConfig(value: "0", label: "SDK keys")
         ]
     )
-}
-
-struct StarterPlanConfig: Equatable, Identifiable {
-    let id: String
-    let title: String
-    let displayPrice: String
-    let originalPrice: String?
-    let billingDetail: String
-    let badge: String?
-
-    var kikiPaywallPlan: KikiPaywallPlan {
-        KikiPaywallPlan(
-            id: id,
-            title: title,
-            displayPrice: displayPrice,
-            originalPrice: originalPrice,
-            billingDetail: billingDetail,
-            badge: badge
-        )
-    }
-}
-
-struct StarterStatConfig: Equatable {
-    let value: String
-    let label: String
 }
