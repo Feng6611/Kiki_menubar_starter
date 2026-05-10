@@ -8,14 +8,14 @@ A minimal macOS menu bar app starter built on [Kiki_mackit](https://github.com/F
 - Reusable settings window with `KikiSettingsWindowController` and `KikiSettingsOpener`.
 - Launch at Login setting exposed through `KikiSettings`.
 - Mock entitlement store for free, trial, and pro states.
-- Paywall window composed from `KikiPaywall` UI atoms.
+- Paywall content composed from `KikiPaywall` UI atoms and presented through Kiki's window presenter.
 - Central app config for labels, links, plan copy, and feature copy.
 - Unit tests for menu mapping, entitlement transitions, and plan mapping.
 
 ## Technical Choices
 
 - Xcode macOS SwiftUI app: easiest path for a real starter that opens in Xcode and builds like a normal app.
-- AppKit menu bar controller: `NSStatusItem` behavior belongs in AppKit, while SwiftUI owns windows and reusable panes.
+- AppKit shell at platform edges: `NSStatusItem` behavior belongs in AppKit, and standalone utility windows use Kiki's AppKit presenter with SwiftUI content.
 - `Kiki_mackit` 0.3.0 dependency: UI packages only, with commerce split out.
 - `RevenueCatCommerceKit` 0.1.0 dependency: purchase transport is available from the standalone commerce package instead of from `Kiki_mackit`.
 - Mock entitlement instead of RevenueCat: the starter stays usable without API keys, products, or App Store setup.

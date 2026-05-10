@@ -21,6 +21,10 @@
 		A0010000000000000000000C /* KikiMenuBar in Frameworks */ = {isa = PBXBuildFile; productRef = A00B00000000000000000002 /* KikiMenuBar */; };
 		A0010000000000000000000D /* KikiPaywall in Frameworks */ = {isa = PBXBuildFile; productRef = A00B00000000000000000003 /* KikiPaywall */; };
 		A0010000000000000000000E /* RevenueCatCommerceKit in Frameworks */ = {isa = PBXBuildFile; productRef = A00B00000000000000000004 /* RevenueCatCommerceKit */; };
+		A0010000000000000000000F /* KikiDesign in Frameworks */ = {isa = PBXBuildFile; productRef = A00B00000000000000000005 /* KikiDesign */; };
+		A00100000000000000000010 /* KikiWindow in Frameworks */ = {isa = PBXBuildFile; productRef = A00B00000000000000000006 /* KikiWindow */; };
+		A00100000000000000000011 /* KikiDesign in Frameworks */ = {isa = PBXBuildFile; productRef = A00B00000000000000000005 /* KikiDesign */; };
+		A00100000000000000000012 /* KikiWindow in Frameworks */ = {isa = PBXBuildFile; productRef = A00B00000000000000000006 /* KikiWindow */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +59,8 @@
 					A00100000000000000000009 /* KikiMenuBar in Frameworks */,
 					A0010000000000000000000A /* KikiPaywall in Frameworks */,
 					A0010000000000000000000E /* RevenueCatCommerceKit in Frameworks */,
+					A0010000000000000000000F /* KikiDesign in Frameworks */,
+					A00100000000000000000010 /* KikiWindow in Frameworks */,
 				);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +71,8 @@
 				A0010000000000000000000B /* KikiSettings in Frameworks */,
 				A0010000000000000000000C /* KikiMenuBar in Frameworks */,
 				A0010000000000000000000D /* KikiPaywall in Frameworks */,
+				A00100000000000000000011 /* KikiDesign in Frameworks */,
+				A00100000000000000000012 /* KikiWindow in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,6 +140,8 @@
 					A00B00000000000000000002 /* KikiMenuBar */,
 					A00B00000000000000000003 /* KikiPaywall */,
 					A00B00000000000000000004 /* RevenueCatCommerceKit */,
+					A00B00000000000000000005 /* KikiDesign */,
+					A00B00000000000000000006 /* KikiWindow */,
 				);
 			productName = KikiMenubarStarter;
 			productReference = A00200000000000000000008 /* KikiMenubarStarter.app */;
@@ -155,6 +165,8 @@
 				A00B00000000000000000001 /* KikiSettings */,
 				A00B00000000000000000002 /* KikiMenuBar */,
 				A00B00000000000000000003 /* KikiPaywall */,
+				A00B00000000000000000005 /* KikiDesign */,
+				A00B00000000000000000006 /* KikiWindow */,
 			);
 			productName = KikiMenubarStarterTests;
 			productReference = A00200000000000000000009 /* KikiMenubarStarterTests.xctest */;
@@ -509,6 +521,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A00D00000000000000000002 /* XCRemoteSwiftPackageReference "RevenueCatCommerceKit" */;
 			productName = RevenueCatCommerceKit;
+		};
+		A00B00000000000000000005 /* KikiDesign */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A00D00000000000000000001 /* XCLocalSwiftPackageReference "../Kiki_mackit" */;
+			productName = KikiDesign;
+		};
+		A00B00000000000000000006 /* KikiWindow */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A00D00000000000000000001 /* XCLocalSwiftPackageReference "../Kiki_mackit" */;
+			productName = KikiWindow;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

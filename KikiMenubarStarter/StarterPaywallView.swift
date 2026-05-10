@@ -1,4 +1,3 @@
-import AppKit
 import KikiPaywall
 import SwiftUI
 
@@ -6,7 +5,16 @@ import SwiftUI
 final class StarterPaywallWindowController {
     private let config: StarterAppConfig
     private let entitlementStore: MockEntitlementStore
-    private var window: NSWindow?
+    private lazy var windowController = KikiPaywallWindowController(
+        title: "Upgrade",
+        size: CGSize(
+            width: KikiPaywallDefaults.windowWidth,
+            height: KikiPaywallDefaults.windowHeight
+        ),
+        frameAutosaveName: "KikiMenubarStarter.PaywallWindow"
+    ) { [config, entitlementStore] in
+        StarterPaywallView(config: config, entitlementStore: entitlementStore)
+    }
 
     init(config: StarterAppConfig, entitlementStore: MockEntitlementStore) {
         self.config = config
@@ -14,31 +22,7 @@ final class StarterPaywallWindowController {
     }
 
     func show() {
-        if let window {
-            window.makeKeyAndOrderFront(nil)
-            activateApp()
-            return
-        }
-
-        let rootView = StarterPaywallView(config: config, entitlementStore: entitlementStore)
-        let window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 520, height: 620),
-            styleMask: [.titled, .closable, .miniaturizable],
-            backing: .buffered,
-            defer: false
-        )
-        window.title = "Upgrade"
-        window.contentView = NSHostingView(rootView: rootView)
-        window.center()
-        window.isReleasedWhenClosed = false
-        self.window = window
-        window.makeKeyAndOrderFront(nil)
-        activateApp()
-    }
-
-    private func activateApp() {
-        NSRunningApplication.current.activate(options: [.activateIgnoringOtherApps])
-        NSApp.activate(ignoringOtherApps: true)
+        windowController.show()
     }
 }
 
