@@ -75,3 +75,28 @@ Kiki packages provide reusable shell and surface mechanics:
 
 The starter owns product state, copy, routing, and replacement points. Do not
 move starter-specific plans, entitlement state, or mock behavior into Kiki.
+
+## Debug and Release Boundaries
+
+Mock entitlement controls are development aids, not product behavior. Keep
+mock-only menu items and state reset actions behind Debug-only compilation so a
+Release build does not expose purchase bypasses or internal test flows.
+
+The mock store can remain in the starter as an onboarding aid for new projects,
+but products should replace it before shipping real commerce. Real entitlement
+state should be app-owned and adapted into the existing menu and paywall display
+models.
+
+## Release Readiness
+
+This starter generates its Info.plist from Xcode build settings. The menu bar
+identity is visible in the project through settings such as `LSUIElement`, bundle
+identifier, display name, and version.
+
+Distribution settings are intentionally not complete in the template. Before
+shipping, each product should decide and configure:
+
+- App Sandbox and required entitlements.
+- Hardened Runtime and signing identity.
+- Notarization and packaging flow.
+- Real bundle identifier, app icon, privacy URL, and support links.

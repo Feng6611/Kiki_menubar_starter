@@ -50,6 +50,17 @@ Open `KikiMenubarStarter.xcodeproj` in Xcode and run the `KikiMenubarStarter` sc
 - Use the app target's standalone `RevenueCatCommerceKit` dependency.
 - Map real products into `StarterPlanConfig` or into `KikiPaywallPlan`.
 - Move API keys, entitlement ids, and product ids into your app-specific config, not into Kiki packages.
+- Keep mock entitlement menu actions Debug-only so Release builds do not expose purchase bypasses.
+
+## Release Readiness
+
+The starter generates its Info.plist from Xcode build settings, including
+`LSUIElement` for a menu bar app. It does not ship a production entitlements file
+or complete distribution signing setup.
+
+Before shipping a product from this template, configure App Sandbox, Hardened
+Runtime, signing, notarization, app icon, bundle identifier, privacy URL, and
+support links for the product.
 
 ## Onboarding Paywall Close Semantics
 

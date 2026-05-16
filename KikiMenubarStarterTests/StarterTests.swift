@@ -1,3 +1,4 @@
+import KikiMenuBar
 import XCTest
 @testable import KikiMenubarStarter
 
@@ -18,9 +19,9 @@ final class StarterTests: XCTestCase {
             "Reset Mock State",
             "Quit Kiki Starter"
         ])
-        XCTAssertFalse(items[0].isEnabled)
-        XCTAssertTrue(items[3].isEnabled)
-        XCTAssertFalse(items[5].isEnabled)
+        XCTAssertEqual(menuItem(titled: "Kiki Starter: Trial active", in: items)?.isEnabled, false)
+        XCTAssertEqual(menuItem(titled: "Open Paywall...", in: items)?.isEnabled, true)
+        XCTAssertEqual(menuItem(titled: "Reset Mock State", in: items)?.isEnabled, false)
     }
 
     func testMenuModelForProUser() {
@@ -30,9 +31,9 @@ final class StarterTests: XCTestCase {
             actions: noOpActions
         )
 
-        XCTAssertEqual(items.compactMap(\.title)[2], "Paywall unlocked")
-        XCTAssertFalse(items[3].isEnabled)
-        XCTAssertTrue(items[5].isEnabled)
+        XCTAssertNotNil(menuItem(titled: "Paywall unlocked", in: items))
+        XCTAssertEqual(menuItem(titled: "Paywall unlocked", in: items)?.isEnabled, false)
+        XCTAssertEqual(menuItem(titled: "Reset Mock State", in: items)?.isEnabled, true)
     }
 
     func testMockEntitlementTransitions() {
@@ -69,5 +70,9 @@ final class StarterTests: XCTestCase {
             resetMockState: {},
             quit: {}
         )
+    }
+
+    private func menuItem(titled title: String, in items: [KikiMenuItem]) -> KikiMenuItem? {
+        items.first { $0.title == title }
     }
 }

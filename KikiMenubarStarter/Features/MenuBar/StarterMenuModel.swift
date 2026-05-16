@@ -17,24 +17,26 @@ enum StarterMenuModel {
         entitlement: StarterEntitlementSnapshot,
         actions: StarterMenuActions
     ) -> [KikiMenuItem] {
-        [
+        var items: [KikiMenuItem] = [
             .action(
                 title: "\(config.appName): \(entitlement.accountStatus)",
                 isEnabled: false,
                 action: {}
             ),
             .separator,
-            .action(
+            .settings(
                 title: "Open Settings...",
-                keyEquivalent: ",",
-                modifierMask: [.command],
                 action: actions.openSettings
             ),
             .action(
                 title: entitlement.isPro ? "Paywall unlocked" : "Open Paywall...",
                 isEnabled: !entitlement.isPro,
                 action: actions.openPaywall
-            ),
+            )
+        ]
+
+        #if DEBUG
+        items.append(contentsOf: [
             .toggle(
                 title: "Mock Pro",
                 isOn: entitlement.isPro,
@@ -44,14 +46,18 @@ enum StarterMenuModel {
                 title: "Reset Mock State",
                 isEnabled: entitlement.isPro || !entitlement.isTrialActive,
                 action: actions.resetMockState
-            ),
+            )
+        ])
+        #endif
+
+        items.append(contentsOf: [
             .separator,
-            .action(
-                title: "Quit \(config.appName)",
-                keyEquivalent: "q",
-                modifierMask: [.command],
+            .quit(
+                appName: config.appName,
                 action: actions.quit
             )
-        ]
+        ])
+
+        return items
     }
 }
