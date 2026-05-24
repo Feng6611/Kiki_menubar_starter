@@ -29,6 +29,7 @@
 		A00100000000000000000014 /* StarterStatConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0020000000000000000000C /* StarterStatConfig.swift */; };
 		A00100000000000000000015 /* StarterEntitlementSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0020000000000000000000D /* StarterEntitlementSnapshot.swift */; };
 		A00100000000000000000016 /* StarterPaywallAdapters.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0020000000000000000000E /* StarterPaywallAdapters.swift */; };
+		A00100000000000000000017 /* StarterOnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000010 /* StarterOnboardingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		A0020000000000000000000D /* StarterEntitlementSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/State/StarterEntitlementSnapshot.swift; sourceTree = "<group>"; };
 		A0020000000000000000000E /* StarterPaywallAdapters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Paywall/StarterPaywallAdapters.swift; sourceTree = "<group>"; };
 		A0020000000000000000000F /* Architecture.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Docs/Architecture.md; sourceTree = "<group>"; };
+		A00200000000000000000010 /* StarterOnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Onboarding/StarterOnboardingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +135,7 @@
 				A0070000000000000000000B /* MenuBar */,
 				A0070000000000000000000C /* Settings */,
 				A0070000000000000000000D /* Paywall */,
+				A00700000000000000000010 /* Onboarding */,
 			);
 			name = Features;
 			sourceTree = "<group>";
@@ -162,6 +165,14 @@
 				A0020000000000000000000E /* StarterPaywallAdapters.swift */,
 			);
 			name = Paywall;
+			sourceTree = "<group>";
+		};
+		A00700000000000000000010 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				A00200000000000000000010 /* StarterOnboardingView.swift */,
+			);
+			name = Onboarding;
 			sourceTree = "<group>";
 		};
 		A0070000000000000000000E /* Shared */ = {
@@ -324,6 +335,7 @@
 				A00100000000000000000014 /* StarterStatConfig.swift in Sources */,
 				A00100000000000000000015 /* StarterEntitlementSnapshot.swift in Sources */,
 				A00100000000000000000016 /* StarterPaywallAdapters.swift in Sources */,
+				A00100000000000000000017 /* StarterOnboardingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -21,6 +21,7 @@ struct KikiMenubarStarterApp: App {
 final class StarterAppDelegate: NSObject, NSApplicationDelegate {
     let config = StarterAppConfig.default
     let entitlementStore = MockEntitlementStore()
+    let onboardingState = StarterOnboardingState()
 
     private let settingsWindowController = KikiSettingsWindowController(
         frameAutosaveName: "KikiMenubarStarter.SettingsWindow",
@@ -34,6 +35,13 @@ final class StarterAppDelegate: NSObject, NSApplicationDelegate {
     private lazy var paywallWindowController = StarterPaywallWindowController(
         config: config,
         entitlementStore: entitlementStore
+    )
+    private lazy var onboardingWindowController = StarterOnboardingWindowController(
+        config: config,
+        onboardingState: onboardingState,
+        openSettings: { [weak self] in
+            self?.openSettings()
+        }
     )
     private var menuBarController: KikiMenuBarController?
 
@@ -49,6 +57,7 @@ final class StarterAppDelegate: NSObject, NSApplicationDelegate {
                 self?.menuItems() ?? []
             }
         )
+        onboardingWindowController.showIfNeeded()
     }
 
     private func menuItems() -> [KikiMenuItem] {
@@ -70,6 +79,10 @@ final class StarterAppDelegate: NSObject, NSApplicationDelegate {
     }
 
     private func openPaywall() {
+        guard config.includesPaidAccess else {
+            return
+        }
+
         paywallWindowController.show()
     }
 

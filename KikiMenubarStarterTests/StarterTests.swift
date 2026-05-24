@@ -36,6 +36,21 @@ final class StarterTests: XCTestCase {
         XCTAssertEqual(menuItem(titled: "Reset Mock State", in: items)?.isEnabled, true)
     }
 
+    func testMenuModelForFreeAppTemplate() {
+        let items = StarterMenuModel.items(
+            config: StarterAppConfig.default.withPaidAccess(false),
+            entitlement: StarterEntitlementSnapshot(isPro: false, isTrialActive: false),
+            actions: noOpActions
+        )
+
+        XCTAssertEqual(items.compactMap(\.title), [
+            "Open Settings...",
+            "Quit Kiki Starter"
+        ])
+        XCTAssertNil(menuItem(titled: "Open Paywall...", in: items))
+        XCTAssertNil(menuItem(titled: "Mock Pro", in: items))
+    }
+
     func testMockEntitlementTransitions() {
         let store = MockEntitlementStore()
 
@@ -62,6 +77,24 @@ final class StarterTests: XCTestCase {
         XCTAssertEqual(plan.badge, "Best value")
     }
 
+    func testOnboardingStateCompletesAndResets() {
+        let defaults = isolatedDefaults()
+        let state = StarterOnboardingState(defaults: defaults)
+
+        XCTAssertFalse(state.hasCompletedOnboarding)
+        XCTAssertTrue(state.shouldShowOnboarding)
+
+        state.complete()
+
+        XCTAssertTrue(state.hasCompletedOnboarding)
+        XCTAssertFalse(state.shouldShowOnboarding)
+
+        state.resetForTesting()
+
+        XCTAssertFalse(state.hasCompletedOnboarding)
+        XCTAssertTrue(state.shouldShowOnboarding)
+    }
+
     private var noOpActions: StarterMenuActions {
         StarterMenuActions(
             openSettings: {},
@@ -74,5 +107,12 @@ final class StarterTests: XCTestCase {
 
     private func menuItem(titled title: String, in items: [KikiMenuItem]) -> KikiMenuItem? {
         items.first { $0.title == title }
+    }
+
+    private func isolatedDefaults() -> UserDefaults {
+        let suiteName = "dev.kkuk.kikistarter.tests.\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: suiteName)!
+        defaults.removePersistentDomain(forName: suiteName)
+        return defaults
     }
 }

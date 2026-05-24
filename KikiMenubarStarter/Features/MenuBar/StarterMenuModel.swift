@@ -18,36 +18,46 @@ enum StarterMenuModel {
         actions: StarterMenuActions
     ) -> [KikiMenuItem] {
         var items: [KikiMenuItem] = [
-            .action(
-                title: "\(config.appName): \(entitlement.accountStatus)",
-                isEnabled: false,
-                action: {}
-            ),
-            .separator,
             .settings(
                 title: "Open Settings...",
                 action: actions.openSettings
-            ),
-            .action(
-                title: entitlement.isPro ? "Paywall unlocked" : "Open Paywall...",
-                isEnabled: !entitlement.isPro,
-                action: actions.openPaywall
             )
         ]
 
-        #if DEBUG
-        items.append(contentsOf: [
-            .toggle(
-                title: "Mock Pro",
-                isOn: entitlement.isPro,
-                action: actions.toggleMockPro
-            ),
-            .action(
-                title: "Reset Mock State",
-                isEnabled: entitlement.isPro || !entitlement.isTrialActive,
-                action: actions.resetMockState
+        if config.includesPaidAccess {
+            items.insert(contentsOf: [
+                .action(
+                    title: "\(config.appName): \(entitlement.accountStatus)",
+                    isEnabled: false,
+                    action: {}
+                ),
+                .separator
+            ], at: 0)
+
+            items.append(
+                .action(
+                    title: entitlement.isPro ? "Paywall unlocked" : "Open Paywall...",
+                    isEnabled: !entitlement.isPro,
+                    action: actions.openPaywall
+                )
             )
-        ])
+        }
+
+        #if DEBUG
+        if config.includesPaidAccess {
+            items.append(contentsOf: [
+                .toggle(
+                    title: "Mock Pro",
+                    isOn: entitlement.isPro,
+                    action: actions.toggleMockPro
+                ),
+                .action(
+                    title: "Reset Mock State",
+                    isEnabled: entitlement.isPro || !entitlement.isTrialActive,
+                    action: actions.resetMockState
+                )
+            ])
+        }
         #endif
 
         items.append(contentsOf: [

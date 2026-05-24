@@ -3,9 +3,13 @@ import Foundation
 struct StarterAppConfig: Equatable {
     let appName: String
     let statusItemTitle: String
-    let supportURL: String
-    let privacyURL: String
+    let includesPaidAccess: Bool
+    let officialURL: String
+    let officialDisplayName: String
+    let contactEmailAddress: String
+    let contactEmailURL: String
     let repositoryURL: String
+    let repositoryDisplayName: String
     let plans: [StarterPlanConfig]
     let features: [String]
     let stats: [StarterStatConfig]
@@ -13,9 +17,13 @@ struct StarterAppConfig: Equatable {
     static let `default` = StarterAppConfig(
         appName: "Kiki Starter",
         statusItemTitle: "Kiki",
-        supportURL: "https://github.com/Feng6611/Kiki_mackit",
-        privacyURL: "https://example.com/privacy",
+        includesPaidAccess: true,
+        officialURL: "https://example.com",
+        officialDisplayName: "example.com",
+        contactEmailAddress: "support@example.com",
+        contactEmailURL: "mailto:support@example.com",
         repositoryURL: "https://github.com/Feng6611/Kiki_menubar_starter",
+        repositoryDisplayName: "Feng6611/Kiki_menubar_starter",
         plans: [
             StarterPlanConfig(
                 id: "monthly",
@@ -37,11 +45,28 @@ struct StarterAppConfig: Equatable {
         features: [
             "Menu bar first app shell",
             "Reusable settings window",
-            "Mock entitlement and paywall flow"
+            "Optional paid access and paywall flow"
         ],
         stats: [
             StarterStatConfig(value: "3", label: "Kiki modules"),
             StarterStatConfig(value: "0", label: "SDK keys")
         ]
     )
+
+    func withPaidAccess(_ includesPaidAccess: Bool) -> StarterAppConfig {
+        StarterAppConfig(
+            appName: appName,
+            statusItemTitle: statusItemTitle,
+            includesPaidAccess: includesPaidAccess,
+            officialURL: officialURL,
+            officialDisplayName: officialDisplayName,
+            contactEmailAddress: contactEmailAddress,
+            contactEmailURL: contactEmailURL,
+            repositoryURL: repositoryURL,
+            repositoryDisplayName: repositoryDisplayName,
+            plans: plans,
+            features: features,
+            stats: stats
+        )
+    }
 }

@@ -3,7 +3,6 @@ import SwiftUI
 
 enum StarterSettingsTab: String, CaseIterable, Identifiable {
     case general
-    case account
     case about
 
     var id: String { rawValue }
@@ -12,8 +11,6 @@ enum StarterSettingsTab: String, CaseIterable, Identifiable {
         switch self {
         case .general:
             return "General"
-        case .account:
-            return "Account"
         case .about:
             return "About"
         }
@@ -23,8 +20,6 @@ enum StarterSettingsTab: String, CaseIterable, Identifiable {
         switch self {
         case .general:
             return "gearshape"
-        case .account:
-            return "person.crop.circle"
         case .about:
             return "info.circle"
         }
@@ -50,8 +45,6 @@ struct StarterSettingsView: View {
             switch tab {
             case .general:
                 generalPane
-            case .account:
-                accountPane
             case .about:
                 aboutPane
             }
@@ -70,62 +63,93 @@ struct StarterSettingsView: View {
                     value: config.statusItemTitle,
                     systemImage: "menubar.rectangle"
                 )
-                KikiSettingsStatusRow(
-                    title: "Entitlement",
-                    value: entitlementStore.snapshot.accountStatus,
-                    systemImage: "person.crop.circle"
-                )
-            }
-        }
-    }
-
-    private var accountPane: some View {
-        KikiSettingsPane {
-            Section("Mock Entitlement") {
-                Toggle("Pro enabled", isOn: Binding(
-                    get: { entitlementStore.isPro },
-                    set: { entitlementStore.setMockPro($0) }
-                ))
-
-                Button("Restore Mock Purchase") {
-                    entitlementStore.restore()
-                }
-
-                Button("Reset Mock State") {
-                    entitlementStore.reset()
-                }
             }
         }
     }
 
     private var aboutPane: some View {
-        KikiAboutPane(
-            appName: config.appName,
-            versionText: "Starter 1.0"
-        ) {
-            KikiSettingsStatusRow(
-                title: "Status",
-                value: entitlementStore.snapshot.accountStatus,
-                systemImage: "heart.circle"
-            )
-        } links: {
-            KikiSettingsLinkRow(
-                title: "Kiki_mackit",
-                value: "Package",
-                urlString: config.supportURL,
-                systemImage: "shippingbox"
-            )
-            KikiSettingsLinkRow(
-                title: "Starter repository",
-                value: "GitHub",
-                urlString: config.repositoryURL,
-                systemImage: "chevron.left.forwardslash.chevron.right"
-            )
-            KikiSettingsCopyRow(
-                title: "Bundle ID",
-                value: "com.kiki.menubarstarter",
-                systemImage: "number"
-            )
+        KikiSettingsPane {
+            Section {
+                KikiAppIdentityView(
+                    appName: config.appName,
+                    versionText: versionText
+                )
+                .padding(.vertical, 20)
+            }
+
+            if config.includesPaidAccess {
+                Section {
+                    KikiSettingsStatusRow(
+                        title: "Status",
+                        value: entitlementStore.snapshot.accountStatus,
+                        systemImage: "heart.circle",
+                        valueColor: entitlementStore.isPro ? .accentColor : .secondary
+                    )
+                }
+            }
+
+            Section {
+                KikiSettingsLinkRow(
+                    title: "Official",
+                    value: config.officialDisplayName,
+                    urlString: config.officialURL,
+                    systemImage: "globe"
+                )
+                KikiSettingsCopyRow(
+                    title: "Email",
+                    value: config.contactEmailAddress,
+                    systemImage: "envelope"
+                )
+                KikiSettingsLinkRow(
+                    title: "GitHub",
+                    value: config.repositoryDisplayName,
+                    urlString: config.repositoryURL,
+                    systemImage: "chevron.left.forwardslash.chevron.right"
+                )
+            }
+
+            #if DEBUG
+            if config.includesPaidAccess {
+                debugSection
+            }
+            #endif
         }
+    }
+
+    #if DEBUG
+    private var debugSection: some View {
+        Section("Developer Testing") {
+            KikiSettingsStatusRow(
+                title: "Test override",
+                value: hasDebugAccessOverride ? "On" : "Off",
+                systemImage: "hammer"
+            )
+            KikiSettingsToggleRow(
+                "Paid access",
+                isOn: Binding(
+                    get: { entitlementStore.isPro },
+                    set: { entitlementStore.setMockPro($0) }
+                ),
+                systemImage: "sparkles"
+            )
+
+            Button("Clear Test Override") {
+                entitlementStore.reset()
+            }
+            .disabled(!hasDebugAccessOverride)
+
+            KikiSettingsHelperText("Debug builds only. Forces the local paid gate without making or restoring a real purchase.")
+        }
+    }
+
+    private var hasDebugAccessOverride: Bool {
+        entitlementStore.isPro || !entitlementStore.isTrialActive
+    }
+    #endif
+
+    private var versionText: String {
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
+        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
+        return "Version \(version) (\(build))"
     }
 }

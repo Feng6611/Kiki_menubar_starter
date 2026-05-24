@@ -25,6 +25,7 @@ delegate product presentation to feature code.
 
 - Menu bar item declarations.
 - Settings panes.
+- Onboarding windows and first-launch presentation.
 - Paywall views, display configuration, and Kiki adapters.
 - Feature-specific presentation models that do not need to be reused elsewhere.
 
@@ -72,9 +73,30 @@ Kiki packages provide reusable shell and surface mechanics:
 - `KikiPaywall`: paywall display shell and optional window presenter.
 - `KikiWindow`: AppKit window hosting and window chrome.
 - `KikiDesign`: shared glass/material surface treatment.
+- `KikiAuthorization`: privacy-permission status, System Settings routing, and
+  helper overlay for app-owned setup flows.
 
 The starter owns product state, copy, routing, and replacement points. Do not
 move starter-specific plans, entitlement state, or mock behavior into Kiki.
+
+## Commerce Boundary
+
+`RevenueCatCommerceKit` is a separate optional package for paid apps. Use it
+when a product needs RevenueCat purchase transport, entitlement refresh,
+purchase, and restore behavior. Do not put RevenueCat code in `Kiki_mackit`.
+
+The host app still owns:
+
+- whether the app is free or paid;
+- trial and expired-access policy;
+- product ids, entitlement ids, and API key wiring;
+- paywall routing and pricing copy;
+- feature locking and recovery behavior.
+
+The starter exposes this as `StarterAppConfig.includesPaidAccess`. Free apps
+should turn that off and remove the commerce package before release. Paid apps
+should replace the mock store with app-owned state backed by
+`RevenueCatCommerceKit`.
 
 ## Debug and Release Boundaries
 
@@ -100,3 +122,16 @@ shipping, each product should decide and configure:
 - Hardened Runtime and signing identity.
 - Notarization and packaging flow.
 - Real bundle identifier, app icon, privacy URL, and support links.
+
+## Product Documentation
+
+The starter carries reusable documentation templates in
+`Docs/Templates/MacAppDocs/`. New product repos should copy the files that match
+their risk level and replace placeholders with product-specific truth.
+
+- Simple apps should keep architecture and product intent docs.
+- Apps with platform risk should also keep decision and issue logs.
+- Kiki should be described as API infrastructure; product behavior and recovery
+  rules belong to the product app docs.
+
+See `Docs/DocumentationPractices.md` for the exact adoption rule.

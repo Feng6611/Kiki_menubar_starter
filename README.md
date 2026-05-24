@@ -1,14 +1,17 @@
 # Kiki Menubar Starter
 
-A minimal macOS menu bar app starter built on [Kiki_mackit](https://github.com/Feng6611/Kiki_mackit). It shows how to connect a status item, settings window, launch-at-login control, mock entitlement state, and paywall UI without bringing in a real purchase backend.
+A minimal macOS menu bar app starter built on [Kiki_mackit](https://github.com/Feng6611/Kiki_mackit). It shows how to connect a status item, settings window, launch-at-login control, About page, and optional paid-access flow without making Kiki own business logic.
 
 ## Feature List
 
 - Menu bar app shell with `KikiMenuBarController`.
 - Reusable settings window with `KikiSettingsWindowController` and `KikiSettingsOpener`.
 - Launch at Login setting exposed through `KikiSettings`.
-- Mock entitlement store for free, trial, and pro states.
-- Paywall content composed from `KikiPaywall` UI atoms and presented through Kiki's window presenter.
+- `General + About` Settings shape with version, official site, email, GitHub,
+  and optional paid status.
+- App-owned first-launch onboarding example.
+- Optional mock paid-access store for trial and pro states.
+- Optional paywall content composed from `KikiPaywall` UI atoms and presented through Kiki's window presenter.
 - Central app config for labels, links, plan copy, and feature copy.
 - Unit tests for menu mapping, entitlement transitions, and plan mapping.
 
@@ -17,8 +20,9 @@ A minimal macOS menu bar app starter built on [Kiki_mackit](https://github.com/F
 - Xcode macOS SwiftUI app: easiest path for a real starter that opens in Xcode and builds like a normal app.
 - AppKit shell at platform edges: `NSStatusItem` behavior belongs in AppKit, and standalone utility windows use Kiki's AppKit presenter with SwiftUI content.
 - `Kiki_mackit` 0.3.0 dependency: UI packages only, with commerce split out.
-- `RevenueCatCommerceKit` 0.1.0 dependency: purchase transport is available from the standalone commerce package instead of from `Kiki_mackit`.
-- Mock entitlement instead of RevenueCat: the starter stays usable without API keys, products, or App Store setup.
+- `RevenueCatCommerceKit` dependency: purchase transport is available from a
+  standalone commerce package for paid apps instead of from `Kiki_mackit`.
+- Mock paid access instead of live RevenueCat: the starter stays usable without API keys, products, or App Store setup.
 - Small config-first surface: most project-specific changes should happen in `StarterAppConfig`.
 
 ## Architecture
@@ -35,6 +39,48 @@ without immediately creating extra packages:
 See [Docs/Architecture.md](Docs/Architecture.md) for the boundary rules and the
 path toward optional `Platform/` or `Core/` layers when the app actually needs them.
 
+## Docs Template
+
+When creating a product from this starter, copy the matching files from
+[Docs/Templates/MacAppDocs](Docs/Templates/MacAppDocs) into the new app's docs
+directory.
+
+- Simple apps should keep `Architecture.md` and `PRD.md`.
+- Platform-risk apps should also keep `DecisionLog.md` and `IssueLog.md`.
+
+Platform-risk means behavior such as Accessibility, event taps, status item
+geometry, activation policy, `NSWorkspace`, pasteboard privacy, or access gates
+that affect recovery. See
+[Docs/DocumentationPractices.md](Docs/DocumentationPractices.md) for the rules.
+
+## Settings Design
+
+The starter also carries the default Settings design rules in
+[Docs/SettingsDesignGuide.md](Docs/SettingsDesignGuide.md). Use it before
+building the first Settings window for a new product, especially when deciding
+tabs, section order, permission copy, access controls, and About content.
+
+## Onboarding Design
+
+Use [Docs/OnboardingDesignGuide.md](Docs/OnboardingDesignGuide.md) before
+adding a first-launch flow. The default rule is simple: onboarding is app-owned,
+skippable, and recoverable; Kiki only supplies reusable APIs such as
+`KikiWindow`, `KikiAuthorization`, `KikiSettings`, and `KikiPaywall`.
+
+## Free vs Paid Apps
+
+Use `StarterAppConfig.includesPaidAccess` as the first product decision.
+
+- Free apps: set it to `false`, remove paywall routes, remove
+  `RevenueCatCommerceKit`, and do not show Pro, trial, plan, or purchase status
+  in Settings.
+- Paid apps: keep it `true` while prototyping, then replace
+  `MockEntitlementStore` with app-owned purchase state backed by
+  `RevenueCatCommerceKit`.
+
+In both cases, keep the user-facing result in About. Paid apps show one
+`Status` row there; free apps do not need a status row.
+
 ## Run
 
 ```sh
@@ -47,7 +93,8 @@ Open `KikiMenubarStarter.xcodeproj` in Xcode and run the `KikiMenubarStarter` sc
 
 - Keep `StarterPaywallView` as the UI shell.
 - Replace `MockEntitlementStore` with your real store.
-- Use the app target's standalone `RevenueCatCommerceKit` dependency.
+- Use the app target's standalone `RevenueCatCommerceKit` dependency only when
+  the product has paid access.
 - Map real products into `StarterPlanConfig` or into `KikiPaywallPlan`.
 - Move API keys, entitlement ids, and product ids into your app-specific config, not into Kiki packages.
 - Keep mock entitlement menu actions Debug-only so Release builds do not expose purchase bypasses.
