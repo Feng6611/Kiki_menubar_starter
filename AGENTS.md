@@ -7,6 +7,8 @@ This repository is a starter/template app for wiring the Kiki macOS UI packages 
 Read `Docs/Architecture.md` before making structural changes. Read
 `Docs/DocumentationPractices.md` before creating a new product from this
 starter or adding platform-risk behavior to an app created from it. Read
+`Docs/Testing.md` before adding features, settings, Core CLI cases, UI smoke
+entry points, or release smoke checks. Read
 `Docs/SettingsDesignGuide.md` before changing Settings UI or creating a new
 app's first Settings window. Read `Docs/OnboardingDesignGuide.md` before adding
 first-launch onboarding, permission setup, trial routing, or skip behavior.
@@ -31,6 +33,17 @@ Keep the template boundary clear:
 - Keep Kiki adapters out of optional Core; put them in `Features/` or `App/`.
 - Do not create empty architecture folders. Add `Platform/` or `Core/` only
   when the project has code that belongs there.
+- Do not force every product into the starter's full shape. Keep the split only
+  when there is enough product logic, platform risk, or test value to justify it.
+- Prefer test seams over abstract layers: pure rules can move to `Core/` and a
+  CLI; UI and AppKit behavior should stay in the app and be verified by Xcode
+  tests or screenshot smoke.
+- For every new feature or setting, update the Feature Inventory first, connect
+  it to an Agent-friendly user journey test case, then classify the verification
+  boundary as Core, Platform, UI, or Manual.
+- UI smoke launch arguments must wake the same app action a real user action
+  wakes. Do not create test-only Settings windows, duplicate panes, or alternate
+  row components for screenshots.
 
 ## Documentation Template Rule
 
@@ -39,6 +52,7 @@ New apps created from this starter should copy the matching docs from
 directory.
 
 - Simple apps should start with `Architecture.md` and `PRD.md`.
+- Apps with any meaningful features or settings should also keep `Testing.md`.
 - Apps that touch Accessibility, `CGEventTap`, status item geometry,
   activation policy, `NSWorkspace`, pasteboard privacy, or recovery-sensitive
   paywall/access behavior should also keep `DecisionLog.md` and `IssueLog.md`.
@@ -46,6 +60,8 @@ directory.
   recovery rules, copy, and access policy belong to the app.
 - Do not leave placeholder sections in shipped project docs. Remove irrelevant
   sections or replace them with real product decisions.
+- In `Architecture.md`, explain which layers are intentionally absent. A simple
+  app can say it has no `Core/` or `Platform/` yet.
 
 ## Settings Design Rule
 
@@ -84,4 +100,5 @@ routing.
 Recommended verification after changes:
 
 - `git diff --check`
+- update the product's Feature Inventory and journey test cases when behavior changes
 - `xcodebuild test -project KikiMenubarStarter.xcodeproj -scheme KikiMenubarStarter -destination 'platform=macOS,arch=arm64'`

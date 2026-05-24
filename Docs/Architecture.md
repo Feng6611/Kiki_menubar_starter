@@ -5,6 +5,22 @@ practical shape used by Command Reopen: keep the app shell thin, group product
 surfaces by feature, isolate system services only when they appear, and avoid a
 heavy `Core/` layer until there is a real second consumer.
 
+## Design Standard
+
+Start from the smallest app-target shape that makes ownership obvious:
+
+- Visible UI: prefer SwiftUI.
+- System integration: isolate AppKit or CoreGraphics at the edge.
+- Complex window or menu behavior: use an AppKit container with SwiftUI content.
+- Product rules: keep them in the app target unless they are pure and need a
+  second consumer.
+
+Direct, Mac App Store, and other distribution modes are build and release
+concerns. They should not be the primary source-code architecture split.
+
+Create a folder only when there is code that clearly belongs there. Empty
+architecture folders make a small app harder to read.
+
 ## Default Boundaries
 
 ### App
@@ -60,9 +76,68 @@ single feature, keep it with that feature.
 pure product rules that can live without SwiftUI, AppKit, Kiki, or app lifecycle
 state.
 
-A separate Core package is justified when there is a real second consumer, such
-as a CLI, helper, extension, background agent, or another app target. Until then,
-prefer clear app-target folders over a premature package split.
+A `Core/` folder is justified when at least one of these is true:
+
+- a CLI, helper, extension, background agent, or another app target consumes the
+  same rules;
+- rules are branchy enough that deterministic input/output tests would make
+  them safer;
+- the same rule is otherwise being duplicated across menu, settings, onboarding,
+  and paywall routing.
+
+Until then, prefer clear app-target folders over a premature package split.
+Avoid creating a separate Swift package unless there is a real reuse or
+distribution boundary.
+
+## Testing-First Shape
+
+Architecture should make the cheapest useful test obvious:
+
+- Pure rules: expose deterministic input/output functions and, when useful, a
+  small CLI.
+- App integration: use Xcode tests and build checks.
+- UI entry points: provide fixed launch arguments or scripts that open the
+  relevant windows and capture screenshots.
+- Risky platform behavior: keep manual smoke checks for permissions, purchase,
+  input interception, and recovery paths.
+
+Do not add `Core/` just to say the app is testable. Add it when it lets a test
+avoid launching the app or touching platform state.
+
+Before adding a feature or setting, classify it in this order:
+
+1. Feature list: what user-visible behavior or setting is changing?
+2. Boundary: Core, Platform, UI, or Manual.
+3. Test entry point: Core CLI matrix, Xcode test, UI smoke screenshot, or manual
+   release smoke.
+
+Core CLI should stay pure. It may evaluate product rules such as routing,
+widths, policy decisions, parsers, and state transitions. It should not read
+Accessibility, inspect `NSStatusItem`, make purchases, open windows, or read
+`UserDefaults`.
+
+## Action Entry Points
+
+Each user action should have one app-owned entry point. Menu clicks, onboarding
+buttons, keyboard shortcuts, launch arguments, and UI smoke scripts should call
+that same entry point instead of creating parallel behavior.
+
+Examples:
+
+- `openSettings()` owns Settings opening and uses `KikiSettingsOpener`.
+- `openPaywall()` owns paywall presentation and uses the app's Kiki paywall
+  adapter.
+- `showOnboarding()` owns onboarding presentation and uses the app's onboarding
+  window controller.
+- Feature actions such as lock/unlock, reveal/collapse, or paste/drop route
+  through the same controller method no matter whether they start from a menu,
+  Settings button, shortcut, or test launch argument.
+
+UI smoke CLIs may select a startup scene, but they should wake the real app
+action and screenshot the real product surface. Do not add test-only Settings
+windows or duplicate SwiftUI row components in the app just to make screenshots
+easier. If the app cannot open a Kiki surface cleanly, fix the app's Kiki
+integration or add a narrow Kiki API that opens the same surface.
 
 ## Kiki Boundary
 
@@ -129,7 +204,7 @@ The starter carries reusable documentation templates in
 `Docs/Templates/MacAppDocs/`. New product repos should copy the files that match
 their risk level and replace placeholders with product-specific truth.
 
-- Simple apps should keep architecture and product intent docs.
+- Simple apps should keep architecture, testing, and product intent docs.
 - Apps with platform risk should also keep decision and issue logs.
 - Kiki should be described as API infrastructure; product behavior and recovery
   rules belong to the product app docs.

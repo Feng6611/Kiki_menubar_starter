@@ -38,6 +38,12 @@ without immediately creating extra packages:
 
 See [Docs/Architecture.md](Docs/Architecture.md) for the boundary rules and the
 path toward optional `Platform/` or `Core/` layers when the app actually needs them.
+Do not copy every folder into every product by default; remove layers that do
+not yet have enough logic, platform risk, or test value.
+
+See [Docs/Testing.md](Docs/Testing.md) for the default feature inventory,
+Agent-friendly journey cases, and Core CLI / Xcode / UI smoke / manual smoke
+split.
 
 ## Docs Template
 
@@ -45,7 +51,7 @@ When creating a product from this starter, copy the matching files from
 [Docs/Templates/MacAppDocs](Docs/Templates/MacAppDocs) into the new app's docs
 directory.
 
-- Simple apps should keep `Architecture.md` and `PRD.md`.
+- Simple apps should keep `Architecture.md`, `Testing.md`, and `PRD.md`.
 - Platform-risk apps should also keep `DecisionLog.md` and `IssueLog.md`.
 
 Platform-risk means behavior such as Accessibility, event taps, status item

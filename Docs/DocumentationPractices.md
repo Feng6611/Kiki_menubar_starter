@@ -7,12 +7,14 @@ risk, and recovery behavior easy to understand later.
 
 ## Best Practice
 
-Use docs to answer four questions:
+Use docs to answer five questions:
 
 1. What problem does this app solve?
 2. What is the current solution and boundary?
 3. What platform risks exist and how does the app fail safely?
 4. Why did we choose this path instead of the tempting alternatives?
+5. Which features are verified by Core CLI, Xcode tests, UI smoke, or manual
+   release smoke?
 
 If a document does not answer one of those questions, it is probably noise.
 
@@ -27,12 +29,36 @@ Include:
 - one-paragraph app summary;
 - directory and layer responsibilities;
 - Kiki API boundary;
+- optional layer decisions, including why `Core/` or `Platform/` is present or
+  absent;
+- test seams, such as Core CLI, Xcode tests, UI smoke, and manual release smoke;
 - platform permissions and APIs;
 - safety and recovery model;
 - explicit non-goals;
 - verification commands.
 
 Do not turn it into a design diary. It should describe the current truth.
+
+### `docs/Testing.md`
+
+Use this for the feature inventory, user-journey test cases, boundary
+classification, and verification commands.
+
+Include:
+
+- a Feature Inventory with one row per important user-facing feature, setting,
+  or state transition;
+- Agent-friendly journey cases that start from user workflows and name stable
+  evidence such as JSON, screenshots, window titles, logs, or persisted state;
+- a Verification Matrix with one row per important feature or setting;
+- the boundary for each row: Core, Platform, UI, or Manual;
+- the Core CLI command or reason it is not applicable;
+- the Xcode test/build command;
+- UI smoke screenshot commands;
+- release-only manual checks.
+
+Do not put real platform behavior into Core CLI just to increase automation
+coverage. CLI tests should stay deterministic and platform-free.
 
 ### `docs/PRD.md`
 
@@ -91,11 +117,13 @@ prevents repeating the same failure.
 For a simple app:
 
 - `docs/Architecture.md`
+- `docs/Testing.md`
 - `docs/PRD.md`
 
 For a platform-risk app:
 
 - `docs/Architecture.md`
+- `docs/Testing.md`
 - `docs/PRD.md`
 - `docs/DecisionLog.md`
 - `docs/IssueLog.md`
@@ -116,17 +144,19 @@ When creating a new app from this starter:
 
 1. copy the matching files from `Docs/Templates/MacAppDocs/`;
 2. replace placeholders with the product's real problem, boundaries, and risks;
-3. remove unused sections instead of leaving fake completeness;
-4. keep Kiki as API infrastructure and keep product behavior in the app docs.
+3. maintain the Feature Inventory and journey cases before choosing the test entry point;
+4. remove unused sections instead of leaving fake completeness;
+5. keep Kiki as API infrastructure and keep product behavior in the app docs.
 
 When changing an existing app:
 
 - update `Architecture.md` when directories, ownership, Kiki usage, platform
   APIs, safety behavior, or recovery paths change;
+- update `Testing.md` when features, settings, journey cases, Core CLI cases,
+  UI smoke entry points, or manual release checks change;
 - update `PRD.md` when user-facing behavior, MVP scope, pricing, trial,
   onboarding, or privacy expectations change;
 - update `DecisionLog.md` when choosing between platform approaches or
   rejecting an obvious alternative;
 - update `IssueLog.md` when a bug took investigation to understand or a
   workaround encodes platform knowledge.
-
