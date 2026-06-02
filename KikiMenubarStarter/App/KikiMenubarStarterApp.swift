@@ -75,7 +75,7 @@ final class StarterAppDelegate: NSObject, NSApplicationDelegate {
     }
 
     private func openSettings() {
-        settingsOpener.open()
+        settingsOpener.openForMenuBarApp()
     }
 
     private func openPaywall() {

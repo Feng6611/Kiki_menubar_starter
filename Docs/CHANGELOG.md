@@ -6,6 +6,8 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 ## [Unreleased]
 
 ### Changed
+- Kept the default Settings opener in accessory mode so starter-based menu bar
+  apps do not show a temporary Dock icon when opening Settings.
 - Documented Debug-only mock entitlement controls and release-readiness checks.
 - Hid mock entitlement menu controls from Release builds.
 - Made menu model tests resilient to separator placement.

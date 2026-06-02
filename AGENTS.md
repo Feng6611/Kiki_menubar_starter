@@ -44,6 +44,9 @@ Keep the template boundary clear:
 - UI smoke launch arguments must wake the same app action a real user action
   wakes. Do not create test-only Settings windows, duplicate panes, or alternate
   row components for screenshots.
+- Menu bar apps should open Settings through
+  `KikiSettingsOpener.openForMenuBarApp()` while keeping accessory mode. Do not
+  switch to Dock-visible regular mode just to foreground Settings.
 
 ## Documentation Template Rule
 

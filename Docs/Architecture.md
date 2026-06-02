@@ -124,7 +124,8 @@ that same entry point instead of creating parallel behavior.
 
 Examples:
 
-- `openSettings()` owns Settings opening and uses `KikiSettingsOpener`.
+- `openSettings()` owns Settings opening and uses
+  `KikiSettingsOpener.openForMenuBarApp()` while keeping accessory mode.
 - `openPaywall()` owns paywall presentation and uses the app's Kiki paywall
   adapter.
 - `showOnboarding()` owns onboarding presentation and uses the app's onboarding
