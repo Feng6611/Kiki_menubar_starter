@@ -33,14 +33,11 @@ enum StarterSettingsTab: String, CaseIterable, Identifiable {
 }
 
 struct StarterSettingsView: View {
-    let config: StarterAppConfig
-    @StateObject private var navigation = KikiSettingsNavigationModel<StarterSettingsTab>(selectedTab: .general)
+    let definition: StarterAppDefinition
+    let coordinator: KikiSettingsCoordinator<StarterSettingsTab>
 
     var body: some View {
-        KikiSettingsShell(
-            selection: $navigation.selectedTab,
-            tabs: StarterSettingsTab.kikiTabs
-        ) { tab in
+        KikiSettingsCoordinatorView(coordinator: coordinator) { tab in
             switch tab {
             case .general:
                 generalPane
@@ -59,7 +56,7 @@ struct StarterSettingsView: View {
             Section("Menu Bar") {
                 KikiSettingsStatusRow(
                     title: "Menu bar item",
-                    value: config.statusItemTitle,
+                    value: definition.statusItemTitle,
                     systemImage: "menubar.rectangle"
                 )
             }
@@ -67,40 +64,13 @@ struct StarterSettingsView: View {
     }
 
     private var aboutPane: some View {
-        KikiSettingsPane {
-            Section {
-                KikiAppIdentityView(
-                    appName: config.appName,
-                    versionText: versionText
-                )
-                .padding(.vertical, 20)
-            }
-
-            Section {
-                KikiSettingsLinkRow(
-                    title: "Official",
-                    value: config.officialDisplayName,
-                    urlString: config.officialURL,
-                    systemImage: "globe"
-                )
-                KikiSettingsCopyRow(
-                    title: "Email",
-                    value: config.contactEmailAddress,
-                    systemImage: "envelope"
-                )
-                KikiSettingsLinkRow(
-                    title: "GitHub",
-                    value: config.repositoryDisplayName,
-                    urlString: config.repositoryURL,
-                    systemImage: "chevron.left.forwardslash.chevron.right"
-                )
-            }
-        }
-    }
-
-    private var versionText: String {
-        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
-        let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
-        return "Version \(version) (\(build))"
+        KikiStandardAboutPane(
+            metadata: .bundle(),
+            links: KikiStandardAboutLinks(
+                website: definition.officialURL,
+                feedback: definition.feedbackURL,
+                github: definition.repositoryURL
+            )
+        )
     }
 }

@@ -86,8 +86,10 @@ Within the system tab, prefer:
 
 ## Component Rules
 
-- Use `KikiSettingsShell` for tabbed Settings.
-- Use `KikiSettingsPane` for each tab body.
+- Use `KikiSettingsCoordinator` + `KikiSettingsCoordinatorView` as the default
+  tabbed Settings Feature.
+- Use `KikiStandardAboutPane` for the normal About shape.
+- Use `KikiSettingsPane` inside app-owned tabs.
 - Use `KikiAppIdentityView` for custom About pages that need extra sections
   below the normal app identity block.
 - Use `KikiSettingsStatusRow` for read-only state.

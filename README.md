@@ -8,12 +8,14 @@ and a recoverable first-launch welcome window.
 ## Default shape
 
 - `KikiMenuBarController` for the menu bar shell.
-- `KikiSettingsWindowController` and `KikiSettingsOpener` for Settings.
-- `General` and `About` tabs using Kiki settings rows.
-- App-owned onboarding state and `KikiSingleWindowController` presentation.
+- `AppDefinition`, `AppComposition`, `AppRouter`, and
+  `AppLifecycleCoordinator` as the stable Product App skeleton.
+- `KikiSettingsCoordinatorView` and `KikiStandardAboutPane` for Settings.
+- `KikiOnboardingCoordinator` for the first-launch window, navigation, and
+  completion-store mechanism.
 - Launch-at-login, official site, email, GitHub, version, and app identity
   examples.
-- Unit tests for menu routing and onboarding completion state.
+- Unit tests for menu routing and composition-owned Feature coordinators.
 
 The default target is intentionally free. It does not link RevenueCat,
 `KikiCommerceKit`, `KikiPaywall`, Pro/Trial/Plan state, product identifiers, or
@@ -23,10 +25,11 @@ mock purchase controls.
 
 The starter keeps the app target small and explicit:
 
-- `App/`: app entry point, menu bar/settings wiring, and onboarding state.
-- `Features/`: menu model, Settings, and the welcome flow.
-- `Shared/`: app-owned product labels and support links.
-- no `Core/` or `Platform/` layer until a real product needs one.
+- `App/`: Definition, Composition, Router, Lifecycle, app entry point, and thin
+  AppDelegate.
+- `Features/`: app-owned menu declarations, Settings panes, and Onboarding
+  content/actions on top of Kiki Features.
+- no `Core/`, `Platform/`, or `Shared/` layer until real code needs one.
 
 See [Docs/Architecture.md](Docs/Architecture.md) for the boundary rules.
 

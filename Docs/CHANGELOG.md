@@ -6,6 +6,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 ## [Unreleased]
 
 ### Changed
+- Established the Product App skeleton with `StarterAppDefinition`,
+  `StarterAppComposition`, `StarterAppRouter`, and
+  `StarterAppLifecycleCoordinator`; AppDelegate now only forwards lifecycle.
+- Adopted `KikiSettingsCoordinatorView`, `KikiStandardAboutPane`, and
+  `KikiOnboardingCoordinator`; removed the parallel Settings window wiring,
+  Onboarding window controller, and app-owned completion store.
+- Reduced direct Base Kit products to Settings, MenuBar, and Onboarding.
 - Refactored the default target into a genuinely free Base Kit template:
   removed RevenueCat/commerce dependencies, paywall and mock entitlement
   surfaces, and split onboarding state, window ownership, and welcome content

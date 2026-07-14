@@ -10,8 +10,8 @@ user journey, then tested at the cheapest reliable layer.
 | --- | --- | --- | --- | --- | --- | --- |
 | F-001 | Menu action routing | User can trigger the main app action from the menu bar | Menu extra | Available / disabled / routed | Core when branchy | J-001 |
 | F-002 | Settings layout and copy | User can understand and change app behavior | Settings window | Default / changed | UI | J-002 |
-| F-003 | Onboarding routing | New user can reach first useful state | Onboarding window | First run / completed / skipped | UI/App | J-003 |
-| F-004 | Menu bar and Settings shell | User can reach the app controls from the accessory app | Menu bar / Settings | Accessory / opened | App/UI | J-004 |
+| F-003 | Onboarding Feature routing | New user can reach first useful state | Kiki Onboarding Feature | First run / completed / closed / routed to Settings | UI/App | J-003 |
+| F-004 | Composition-owned app shell | User can reach the app controls from the accessory app | Menu bar / Settings | Accessory / opened | App/UI | J-004 |
 
 ## Agent-Friendly Journey Cases
 
@@ -19,7 +19,7 @@ user journey, then tested at the cheapest reliable layer.
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | J-001 | Use the menu bar action | F-001 | Core/App | Known reduced state | Run Core matrix or menu model test | JSON action/title or passing test | None |
 | J-002 | Review and change settings | F-002 | UI | Debug build | Open fixed Settings scene and screenshot | Nonblank screenshot with expected tab/copy | Close app |
-| J-003 | First-run onboarding | F-003 | UI/App | Fresh or reset onboarding state | Open onboarding scene | Screenshot and state test | Reset onboarding state |
+| J-003 | First-run onboarding | F-003 | UI/App | Fresh or reset onboarding state | Open the real Kiki Onboarding route | Screenshot plus coordinator completion test | Reset completion store |
 | J-004 | Open the real Settings surface | F-004 | UI/App | Debug build | Open Settings from the menu bar | Real Settings window with General/About | Close app |
 
 ## Verification Matrix
@@ -28,8 +28,8 @@ user journey, then tested at the cheapest reliable layer.
 | --- | --- | --- | --- | --- | --- |
 | Menu action routing | Core when branchy | Optional | Required | Optional | No |
 | Settings layout and copy | UI | No | Optional | Required when changed | No |
-| Onboarding routing | UI/App | Optional for pure rules | Required | Required when changed | Close/skip path |
-| Menu bar and Settings shell | UI/App | No | Required | Settings screenshot | Accessory app smoke |
+| Onboarding Feature routing | UI/App | No | Required | Required when changed | Close/route path |
+| Composition-owned app shell | UI/App | No | Required | Settings screenshot | Accessory app smoke |
 
 Boundary values:
 

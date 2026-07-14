@@ -80,11 +80,14 @@ needed when the user tries to lock.
 
 ## Starter Implementation Rule
 
-The starter's onboarding code is a product-template example, not a Kiki package.
-When creating a new app:
+The starter's onboarding code demonstrates an App-owned definition and route on
+top of the Kiki Onboarding Feature. When creating a new app:
 
-- keep the window controller and persistence in the app target;
-- use `KikiSingleWindowController` for a small standalone welcome window;
+- use `KikiOnboardingCoordinator` for the window, navigation, and completion
+  store mechanism;
+- keep the completion key, copy, close/skip policy, and post-finish route in the
+  app target;
+- use typed Kiki steps first and `.custom` only for a real product interaction;
 - route permission buttons through `KikiAuthorization`;
 - route paid actions through the app's paywall or commerce layer only when the
   app is paid;

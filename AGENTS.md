@@ -16,10 +16,12 @@ first-launch onboarding, permission setup, trial routing, or skip behavior.
 The starter is organized as an app-target architecture example that follows the
 practical Command Reopen-style layout:
 
-- `App/`: app entry point, AppKit lifecycle, Kiki wiring, and presentation glue.
+- `App/`: `AppDefinition`, `AppComposition`, `AppRouter`, lifecycle coordinator,
+  app entry point, and thin AppDelegate forwarding.
 - `Features/`: SwiftUI surfaces, feature display config, and adapters into Kiki UI.
 - `Platform/`: optional system-service wrappers when the app talks directly to macOS APIs.
-- `Shared/`: app-local config, copy, links, defaults, and future design tokens.
+- `Shared/`: optional values genuinely shared by multiple features; product
+  identity, copy, URLs, and stable keys belong in `AppDefinition` by default.
 - `Core/`: optional only; add it for pure rules with a real second consumer or clear platform-free value.
 
 Keep the template boundary clear:
@@ -34,8 +36,9 @@ Keep the template boundary clear:
 - Keep Kiki adapters out of optional Core; put them in `Features/` or `App/`.
 - Do not create empty architecture folders. Add `Platform/` or `Core/` only
   when the project has code that belongs there.
-- Do not force every product into the starter's full shape. Keep the split only
-  when there is enough product logic, platform risk, or test value to justify it.
+- Keep the four App roles because they define the composition contract. Do not
+  force optional `Core/`, `Platform/`, `Shared/`, or paid folders into products
+  without code that belongs there.
 - Prefer test seams over abstract layers: pure rules can move to `Core/` and a
   CLI; UI and AppKit behavior should stay in the app and be verified by Xcode
   tests or screenshot smoke.
@@ -83,15 +86,15 @@ does not serve the product.
   commerce state.
 - Do not let mock entitlement or debug controls define the release Settings
   layout.
-- Prefer Kiki row components over raw SwiftUI controls unless the needed
-  component does not exist yet.
+- Start with `KikiSettingsCoordinatorView` and `KikiStandardAboutPane`. Use
+  lower-level Kiki rows inside app-owned pane content only where needed.
 
 ## Onboarding Design Rule
 
-Onboarding belongs in the app target, not in Kiki packages. Kiki can provide
-window, authorization, paywall, and settings APIs, while the product app owns
-copy, persistence, skip behavior, permission consequences, and paid-access
-routing.
+Onboarding uses `KikiOnboardingCoordinator` as the default Feature. Kiki owns
+the window, navigation, scaffold, and completion-store mechanism; the product
+app owns copy, completion keys, legacy migration, close/skip policy,
+permission consequences, and paid-access routing.
 
 - Keep onboarding skippable and recoverable; do not make it a hidden permission
   gate.

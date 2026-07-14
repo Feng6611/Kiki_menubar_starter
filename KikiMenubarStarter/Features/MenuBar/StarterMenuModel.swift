@@ -10,7 +10,7 @@ struct StarterMenuActions {
 enum StarterMenuModel {
     @MainActor
     static func items(
-        config: StarterAppConfig,
+        definition: StarterAppDefinition,
         actions: StarterMenuActions
     ) -> [KikiMenuItem] {
         [
@@ -20,7 +20,7 @@ enum StarterMenuModel {
             ),
             .separator,
             .quit(
-                appName: config.appName,
+                appName: definition.appName,
                 action: actions.quit
             )
         ]

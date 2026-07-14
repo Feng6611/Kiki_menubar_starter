@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A00100000000000000000001 /* KikiMenubarStarterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000001 /* KikiMenubarStarterApp.swift */; };
-		A00100000000000000000002 /* StarterAppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000002 /* StarterAppConfig.swift */; };
+		A00100000000000000000002 /* StarterAppDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000002 /* StarterAppDefinition.swift */; };
 		A00100000000000000000004 /* StarterMenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000004 /* StarterMenuModel.swift */; };
 		A00100000000000000000005 /* StarterSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000005 /* StarterSettingsView.swift */; };
 		A00100000000000000000007 /* StarterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000007 /* StarterTests.swift */; };
@@ -16,13 +16,12 @@
 		A00100000000000000000009 /* KikiMenuBar in Frameworks */ = {isa = PBXBuildFile; productRef = A00B00000000000000000002 /* KikiMenuBar */; };
 		A0010000000000000000000B /* KikiSettings in Frameworks */ = {isa = PBXBuildFile; productRef = A00B00000000000000000001 /* KikiSettings */; };
 		A0010000000000000000000C /* KikiMenuBar in Frameworks */ = {isa = PBXBuildFile; productRef = A00B00000000000000000002 /* KikiMenuBar */; };
-		A0010000000000000000000F /* KikiDesign in Frameworks */ = {isa = PBXBuildFile; productRef = A00B00000000000000000005 /* KikiDesign */; };
-		A00100000000000000000010 /* KikiWindow in Frameworks */ = {isa = PBXBuildFile; productRef = A00B00000000000000000006 /* KikiWindow */; };
-		A00100000000000000000011 /* KikiDesign in Frameworks */ = {isa = PBXBuildFile; productRef = A00B00000000000000000005 /* KikiDesign */; };
-		A00100000000000000000012 /* KikiWindow in Frameworks */ = {isa = PBXBuildFile; productRef = A00B00000000000000000006 /* KikiWindow */; };
-		A00100000000000000000017 /* StarterWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000010 /* StarterWelcomeView.swift */; };
-		A00100000000000000000018 /* StarterOnboardingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000011 /* StarterOnboardingState.swift */; };
-		A00100000000000000000019 /* StarterWelcomeWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000012 /* StarterWelcomeWindowController.swift */; };
+		A0010000000000000000000D /* KikiOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = A00B00000000000000000003 /* KikiOnboarding */; };
+		A0010000000000000000000E /* KikiOnboarding in Frameworks */ = {isa = PBXBuildFile; productRef = A00B00000000000000000003 /* KikiOnboarding */; };
+		A00100000000000000000017 /* StarterOnboardingFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000010 /* StarterOnboardingFeature.swift */; };
+		A00100000000000000000018 /* StarterAppComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000011 /* StarterAppComposition.swift */; };
+		A00100000000000000000019 /* StarterAppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000012 /* StarterAppRouter.swift */; };
+		A00100000000000000000020 /* StarterAppLifecycleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00200000000000000000013 /* StarterAppLifecycleCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +36,7 @@
 
 /* Begin PBXFileReference section */
 		A00200000000000000000001 /* KikiMenubarStarterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/KikiMenubarStarterApp.swift; sourceTree = "<group>"; };
-		A00200000000000000000002 /* StarterAppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared/StarterAppConfig.swift; sourceTree = "<group>"; };
+		A00200000000000000000002 /* StarterAppDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/StarterAppDefinition.swift; sourceTree = "<group>"; };
 		A00200000000000000000004 /* StarterMenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/MenuBar/StarterMenuModel.swift; sourceTree = "<group>"; };
 		A00200000000000000000005 /* StarterSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Settings/StarterSettingsView.swift; sourceTree = "<group>"; };
 		A00200000000000000000007 /* StarterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarterTests.swift; sourceTree = "<group>"; };
@@ -45,9 +44,10 @@
 		A00200000000000000000009 /* KikiMenubarStarterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KikiMenubarStarterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0020000000000000000000A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A0020000000000000000000F /* Architecture.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Docs/Architecture.md; sourceTree = "<group>"; };
-		A00200000000000000000010 /* StarterWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Onboarding/StarterWelcomeView.swift; sourceTree = "<group>"; };
-		A00200000000000000000011 /* StarterOnboardingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/State/StarterOnboardingState.swift; sourceTree = "<group>"; };
-		A00200000000000000000012 /* StarterWelcomeWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Onboarding/StarterWelcomeWindowController.swift; sourceTree = "<group>"; };
+		A00200000000000000000010 /* StarterOnboardingFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Onboarding/StarterOnboardingFeature.swift; sourceTree = "<group>"; };
+		A00200000000000000000011 /* StarterAppComposition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/StarterAppComposition.swift; sourceTree = "<group>"; };
+		A00200000000000000000012 /* StarterAppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/StarterAppRouter.swift; sourceTree = "<group>"; };
+		A00200000000000000000013 /* StarterAppLifecycleCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/StarterAppLifecycleCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,8 +57,7 @@
 				files = (
 					A00100000000000000000008 /* KikiSettings in Frameworks */,
 					A00100000000000000000009 /* KikiMenuBar in Frameworks */,
-					A0010000000000000000000F /* KikiDesign in Frameworks */,
-					A00100000000000000000010 /* KikiWindow in Frameworks */,
+				A0010000000000000000000D /* KikiOnboarding in Frameworks */,
 				);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,8 +67,7 @@
 			files = (
 				A0010000000000000000000B /* KikiSettings in Frameworks */,
 				A0010000000000000000000C /* KikiMenuBar in Frameworks */,
-				A00100000000000000000011 /* KikiDesign in Frameworks */,
-				A00100000000000000000012 /* KikiWindow in Frameworks */,
+				A0010000000000000000000E /* KikiOnboarding in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,7 +90,6 @@
 			children = (
 				A00700000000000000000005 /* App */,
 				A0070000000000000000000A /* Features */,
-				A0070000000000000000000E /* Shared */,
 			);
 			path = KikiMenubarStarter;
 			sourceTree = "<group>";
@@ -101,7 +98,10 @@
 			isa = PBXGroup;
 			children = (
 				A00200000000000000000001 /* KikiMenubarStarterApp.swift */,
-				A00200000000000000000011 /* StarterOnboardingState.swift */,
+				A00200000000000000000002 /* StarterAppDefinition.swift */,
+				A00200000000000000000011 /* StarterAppComposition.swift */,
+				A00200000000000000000012 /* StarterAppRouter.swift */,
+				A00200000000000000000013 /* StarterAppLifecycleCoordinator.swift */,
 			);
 			name = App;
 			sourceTree = "<group>";
@@ -135,18 +135,9 @@
 		A00700000000000000000010 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				A00200000000000000000010 /* StarterWelcomeView.swift */,
-				A00200000000000000000012 /* StarterWelcomeWindowController.swift */,
+				A00200000000000000000010 /* StarterOnboardingFeature.swift */,
 			);
 			name = Onboarding;
-			sourceTree = "<group>";
-		};
-		A0070000000000000000000E /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				A00200000000000000000002 /* StarterAppConfig.swift */,
-			);
-			name = Shared;
 			sourceTree = "<group>";
 		};
 		A0070000000000000000000F /* Docs */ = {
@@ -193,9 +184,8 @@
 			packageProductDependencies = (
 				A00B00000000000000000001 /* KikiSettings */,
 				A00B00000000000000000002 /* KikiMenuBar */,
-				A00B00000000000000000005 /* KikiDesign */,
-					A00B00000000000000000006 /* KikiWindow */,
-				);
+				A00B00000000000000000003 /* KikiOnboarding */,
+			);
 			productName = KikiMenubarStarter;
 			productReference = A00200000000000000000008 /* KikiMenubarStarter.app */;
 			productType = "com.apple.product-type.application";
@@ -217,8 +207,7 @@
 			packageProductDependencies = (
 				A00B00000000000000000001 /* KikiSettings */,
 				A00B00000000000000000002 /* KikiMenuBar */,
-				A00B00000000000000000005 /* KikiDesign */,
-				A00B00000000000000000006 /* KikiWindow */,
+				A00B00000000000000000003 /* KikiOnboarding */,
 			);
 			productName = KikiMenubarStarterTests;
 			productReference = A00200000000000000000009 /* KikiMenubarStarterTests.xctest */;
@@ -288,12 +277,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				A00100000000000000000001 /* KikiMenubarStarterApp.swift in Sources */,
-				A00100000000000000000002 /* StarterAppConfig.swift in Sources */,
+				A00100000000000000000002 /* StarterAppDefinition.swift in Sources */,
 				A00100000000000000000004 /* StarterMenuModel.swift in Sources */,
 				A00100000000000000000005 /* StarterSettingsView.swift in Sources */,
-				A00100000000000000000017 /* StarterWelcomeView.swift in Sources */,
-				A00100000000000000000018 /* StarterOnboardingState.swift in Sources */,
-				A00100000000000000000019 /* StarterWelcomeWindowController.swift in Sources */,
+				A00100000000000000000017 /* StarterOnboardingFeature.swift in Sources */,
+				A00100000000000000000018 /* StarterAppComposition.swift in Sources */,
+				A00100000000000000000019 /* StarterAppRouter.swift in Sources */,
+				A00100000000000000000020 /* StarterAppLifecycleCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -553,15 +543,10 @@
 			package = A00D00000000000000000001 /* XCLocalSwiftPackageReference "../Kiki_mackit" */;
 			productName = KikiMenuBar;
 		};
-		A00B00000000000000000005 /* KikiDesign */ = {
+		A00B00000000000000000003 /* KikiOnboarding */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = A00D00000000000000000001 /* XCLocalSwiftPackageReference "../Kiki_mackit" */;
-			productName = KikiDesign;
-		};
-		A00B00000000000000000006 /* KikiWindow */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A00D00000000000000000001 /* XCLocalSwiftPackageReference "../Kiki_mackit" */;
-			productName = KikiWindow;
+			productName = KikiOnboarding;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

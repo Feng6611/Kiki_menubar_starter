@@ -1,4 +1,5 @@
 import KikiMenuBar
+import KikiOnboarding
 import XCTest
 @testable import KikiMenubarStarter
 
@@ -6,7 +7,7 @@ import XCTest
 final class StarterTests: XCTestCase {
     func testMenuModelIsFreeByDefault() {
         let items = StarterMenuModel.items(
-            config: .default,
+            definition: .live,
             actions: noOpActions
         )
 
@@ -16,22 +17,25 @@ final class StarterTests: XCTestCase {
         ])
     }
 
-    func testOnboardingStateCompletesAndResets() {
+    func testCompositionOwnsFeatureCoordinatorsAndStableKeys() {
         let defaults = isolatedDefaults()
-        let state = StarterOnboardingState(defaults: defaults)
+        let composition = StarterAppComposition(defaults: defaults)
 
-        XCTAssertFalse(state.hasCompletedOnboarding)
-        XCTAssertTrue(state.shouldShowOnboarding)
+        XCTAssertEqual(composition.settingsCoordinator.tabs.map(\.tab), [.general, .about])
+        XCTAssertEqual(
+            composition.onboardingCoordinator.configuration.completionKey,
+            StarterAppDefinition.live.onboardingCompletionKey
+        )
+        XCTAssertEqual(composition.onboardingCoordinator.currentStep?.id, "custom.starter-welcome")
+        XCTAssertFalse(composition.onboardingCoordinator.isCompleted)
 
-        state.complete()
+        composition.onboardingCoordinator.finish()
 
-        XCTAssertTrue(state.hasCompletedOnboarding)
-        XCTAssertFalse(state.shouldShowOnboarding)
+        XCTAssertTrue(composition.onboardingCoordinator.isCompleted)
 
-        state.resetForTesting()
+        composition.onboardingCoordinator.resetCompletion()
 
-        XCTAssertFalse(state.hasCompletedOnboarding)
-        XCTAssertTrue(state.shouldShowOnboarding)
+        XCTAssertFalse(composition.onboardingCoordinator.isCompleted)
     }
 
     private var noOpActions: StarterMenuActions {
