@@ -26,10 +26,11 @@ Keep the template boundary clear:
 
 - Do not add Direct distribution logic.
 - Use `Kiki_mackit` for UI package examples.
-- Use the standalone `RevenueCatCommerceKit` package only for paid-app commerce
-  wiring examples.
+- Keep the starter free and Commerce-free. Paid products add
+  `KikiCommerceKit` only after copying the template and defining real access
+  rules.
 - Keep app-specific business logic minimal and easy to replace.
-- Do not treat the mock entitlement store as reusable commerce architecture.
+- Do not add mock entitlement or paywall state to the default starter target.
 - Keep Kiki adapters out of optional Core; put them in `Features/` or `App/`.
 - Do not create empty architecture folders. Add `Platform/` or `Core/` only
   when the project has code that belongs there.
@@ -77,8 +78,9 @@ does not serve the product.
   integration.
 - Add `Account`, `Plan`, or `Access` only when the release product has real
   purchase, trial, account, or license behavior.
-- Use `StarterAppConfig.includesPaidAccess` to keep free apps free of Paywall,
-  Pro status, and mock purchase controls.
+- Keep the default Settings shape free of Paywall, Pro status, and purchase
+  controls. A paid product may add an access row only after it introduces real
+  commerce state.
 - Do not let mock entitlement or debug controls define the release Settings
   layout.
 - Prefer Kiki row components over raw SwiftUI controls unless the needed

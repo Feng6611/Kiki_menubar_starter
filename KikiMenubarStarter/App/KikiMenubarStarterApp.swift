@@ -9,10 +9,7 @@ struct KikiMenubarStarterApp: App {
 
     var body: some Scene {
         Settings {
-            StarterSettingsView(
-                config: appDelegate.config,
-                entitlementStore: appDelegate.entitlementStore
-            )
+            StarterSettingsView(config: appDelegate.config)
         }
     }
 }
@@ -20,7 +17,6 @@ struct KikiMenubarStarterApp: App {
 @MainActor
 final class StarterAppDelegate: NSObject, NSApplicationDelegate {
     let config = StarterAppConfig.default
-    let entitlementStore = MockEntitlementStore()
     let onboardingState = StarterOnboardingState()
 
     private let settingsWindowController = KikiSettingsWindowController(
@@ -32,11 +28,7 @@ final class StarterAppDelegate: NSObject, NSApplicationDelegate {
         windowTitle: "Settings"
     )
     private lazy var settingsOpener = KikiSettingsOpener(windowController: settingsWindowController)
-    private lazy var paywallWindowController = StarterPaywallWindowController(
-        config: config,
-        entitlementStore: entitlementStore
-    )
-    private lazy var onboardingWindowController = StarterOnboardingWindowController(
+    private lazy var welcomeWindowController = StarterWelcomeWindowController(
         config: config,
         onboardingState: onboardingState,
         openSettings: { [weak self] in
@@ -57,18 +49,14 @@ final class StarterAppDelegate: NSObject, NSApplicationDelegate {
                 self?.menuItems() ?? []
             }
         )
-        onboardingWindowController.showIfNeeded()
+        welcomeWindowController.showIfNeeded()
     }
 
     private func menuItems() -> [KikiMenuItem] {
         StarterMenuModel.items(
             config: config,
-            entitlement: entitlementStore.snapshot,
             actions: StarterMenuActions(
                 openSettings: { [weak self] in self?.openSettings() },
-                openPaywall: { [weak self] in self?.openPaywall() },
-                toggleMockPro: { [weak self] in self?.toggleMockPro() },
-                resetMockState: { [weak self] in self?.entitlementStore.reset() },
                 quit: { NSApp.terminate(nil) }
             )
         )
@@ -76,17 +64,5 @@ final class StarterAppDelegate: NSObject, NSApplicationDelegate {
 
     private func openSettings() {
         settingsOpener.openForMenuBarApp()
-    }
-
-    private func openPaywall() {
-        guard config.includesPaidAccess else {
-            return
-        }
-
-        paywallWindowController.show()
-    }
-
-    private func toggleMockPro() {
-        entitlementStore.setMockPro(!entitlementStore.isPro)
     }
 }

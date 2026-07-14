@@ -6,6 +6,12 @@ Format follows [Keep a Changelog](https://keepachangelog.com/).
 ## [Unreleased]
 
 ### Changed
+- Refactored the default target into a genuinely free Base Kit template:
+  removed RevenueCat/commerce dependencies, paywall and mock entitlement
+  surfaces, and split onboarding state, window ownership, and welcome content
+  into focused app files.
+- Kept the default product shape to menu bar, General/About Settings, and a
+  recoverable welcome window; paid products add `KikiCommerceKit` separately.
 - Kept the default Settings opener in accessory mode so starter-based menu bar
   apps do not show a temporary Dock icon when opening Settings.
 - Documented Debug-only mock entitlement controls and release-readiness checks.

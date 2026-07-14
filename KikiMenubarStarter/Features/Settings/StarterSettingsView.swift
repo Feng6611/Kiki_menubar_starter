@@ -34,7 +34,6 @@ enum StarterSettingsTab: String, CaseIterable, Identifiable {
 
 struct StarterSettingsView: View {
     let config: StarterAppConfig
-    @ObservedObject var entitlementStore: MockEntitlementStore
     @StateObject private var navigation = KikiSettingsNavigationModel<StarterSettingsTab>(selectedTab: .general)
 
     var body: some View {
@@ -54,12 +53,12 @@ struct StarterSettingsView: View {
     private var generalPane: some View {
         KikiSettingsPane {
             Section("Startup") {
-                LaunchAtLogin.Toggle("Launch at Login")
+                KikiSettings.LaunchAtLogin.Toggle("Launch at Login")
             }
 
-            Section("Status") {
+            Section("Menu Bar") {
                 KikiSettingsStatusRow(
-                    title: "Menu bar title",
+                    title: "Menu bar item",
                     value: config.statusItemTitle,
                     systemImage: "menubar.rectangle"
                 )
@@ -75,17 +74,6 @@ struct StarterSettingsView: View {
                     versionText: versionText
                 )
                 .padding(.vertical, 20)
-            }
-
-            if config.includesPaidAccess {
-                Section {
-                    KikiSettingsStatusRow(
-                        title: "Status",
-                        value: entitlementStore.snapshot.accountStatus,
-                        systemImage: "heart.circle",
-                        valueColor: entitlementStore.isPro ? .accentColor : .secondary
-                    )
-                }
             }
 
             Section {
@@ -107,45 +95,8 @@ struct StarterSettingsView: View {
                     systemImage: "chevron.left.forwardslash.chevron.right"
                 )
             }
-
-            #if DEBUG
-            if config.includesPaidAccess {
-                debugSection
-            }
-            #endif
         }
     }
-
-    #if DEBUG
-    private var debugSection: some View {
-        Section("Developer Testing") {
-            KikiSettingsStatusRow(
-                title: "Test override",
-                value: hasDebugAccessOverride ? "On" : "Off",
-                systemImage: "hammer"
-            )
-            KikiSettingsToggleRow(
-                "Paid access",
-                isOn: Binding(
-                    get: { entitlementStore.isPro },
-                    set: { entitlementStore.setMockPro($0) }
-                ),
-                systemImage: "sparkles"
-            )
-
-            Button("Clear Test Override") {
-                entitlementStore.reset()
-            }
-            .disabled(!hasDebugAccessOverride)
-
-            KikiSettingsHelperText("Debug builds only. Forces the local paid gate without making or restoring a real purchase.")
-        }
-    }
-
-    private var hasDebugAccessOverride: Bool {
-        entitlementStore.isPro || !entitlementStore.isTrialActive
-    }
-    #endif
 
     private var versionText: String {
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"

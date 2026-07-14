@@ -146,7 +146,8 @@ Kiki packages provide reusable shell and surface mechanics:
 
 - `KikiMenuBar`: status item, native menu items, and popover hosting.
 - `KikiSettings`: settings scene shell and common settings rows.
-- `KikiPaywall`: paywall display shell and optional window presenter.
+- `KikiPaywall`: optional paywall display shell for paid products, not linked by
+  the default starter target.
 - `KikiWindow`: AppKit window hosting and window chrome.
 - `KikiDesign`: shared glass/material surface treatment.
 - `KikiAuthorization`: privacy-permission status, System Settings routing, and
@@ -157,9 +158,10 @@ move starter-specific plans, entitlement state, or mock behavior into Kiki.
 
 ## Commerce Boundary
 
-`RevenueCatCommerceKit` is a separate optional package for paid apps. Use it
-when a product needs RevenueCat purchase transport, entitlement refresh,
-purchase, and restore behavior. Do not put RevenueCat code in `Kiki_mackit`.
+`KikiCommerceKit` is a separate optional package for paid apps. Add it only
+when a copied product has real purchase transport, entitlement refresh,
+purchase, and restore behavior. Do not put commerce or RevenueCat code in the
+free starter target or in `Kiki_mackit`.
 
 The host app still owns:
 
@@ -169,21 +171,15 @@ The host app still owns:
 - paywall routing and pricing copy;
 - feature locking and recovery behavior.
 
-The starter exposes this as `StarterAppConfig.includesPaidAccess`. Free apps
-should turn that off and remove the commerce package before release. Paid apps
-should replace the mock store with app-owned state backed by
-`RevenueCatCommerceKit`.
+The starter has no paid-access switch because its default target is already
+free. Paid products should add app-owned access state and
+`KikiCommerceKit` after copying the template.
 
 ## Debug and Release Boundaries
 
-Mock entitlement controls are development aids, not product behavior. Keep
-mock-only menu items and state reset actions behind Debug-only compilation so a
-Release build does not expose purchase bypasses or internal test flows.
-
-The mock store can remain in the starter as an onboarding aid for new projects,
-but products should replace it before shipping real commerce. Real entitlement
-state should be app-owned and adapted into the existing menu and paywall display
-models.
+The starter has no mock entitlement controls. If a paid product adds local
+testing controls, keep them behind Debug-only compilation and replace them with
+real app-owned access state before shipping.
 
 ## Release Readiness
 

@@ -191,20 +191,20 @@ plain user-facing labels such as `Test override`, `Paid access`, and
 ## Paid and Free App Shape
 
 Free apps should remove paywall UI, purchase stores, product ids, and
-`RevenueCatCommerceKit`. They should not show `Status`, `Plan`, `Pro`, trial, or
+`KikiCommerceKit`. They should not show `Status`, `Plan`, `Pro`, trial, or
 mock purchase controls unless the product really has that concept.
 
 Paid apps should keep commerce state app-owned. The app may use
-`RevenueCatCommerceKit` for purchase transport and `KikiPaywall` for display,
+`KikiCommerceKit` for purchase transport and `KikiPaywall` for display,
 but Kiki should not know product ids, entitlement ids, prices, trial rules, or
 RevenueCat configuration. In Settings, show the resulting user-facing access
 state in `About` as `Status`; do not repeat Pro or purchase controls in other
 settings panes.
 
-In the starter, use `StarterAppConfig.includesPaidAccess` as the first switch:
-`false` means no Paywall menu item, no About `Status`, and no Debug paid-access
-controls. `true` means the starter shows the mock paid flow until the product
-replaces it with real commerce state.
+The starter default is always free: it has no Paywall menu item, About `Status`,
+or Debug paid-access controls. A paid product should add `KikiCommerceKit` and
+app-owned access state after copying the template, rather than turning the
+starter into a mock-commerce app.
 
 ## Release Checklist
 
