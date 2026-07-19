@@ -53,6 +53,13 @@ Kiki's paywall presentation only after the product has real plans and access
 rules. Do not reintroduce a mock store or a second paywall implementation into
 the free starter target.
 
+Generated Apple paid products default to Apple Sandbox for Debug: Debug and
+Release inject the same Apple public RevenueCat SDK key (`appl_`), while the
+Apple Development signature/receipt routes Debug transactions to Sandbox. A
+paid product's build guard must reject `test_`, and its run script must verify
+the Development signature before launching. The checked-in free Starter still
+contains no RevenueCat key or Commerce dependency.
+
 ## Run and test
 
 ```sh

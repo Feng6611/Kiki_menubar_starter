@@ -60,6 +60,12 @@ xcodebuild test -project <Project>.xcodeproj -scheme <Scheme> -destination 'plat
 xcodebuild build -project <Project>.xcodeproj -scheme <Scheme> -configuration Debug -destination 'platform=macOS,arch=arm64'
 ```
 
+For an Apple paid app, Debug defaults to Apple Sandbox, not RevenueCat Test
+Store. Use the same `appl_` public SDK key as Release, keep it in an ignored
+xcconfig/CI setting, require Apple Development signing, and verify the final App
+Bundle's key and Bundle ID before launch. Never add
+`CODE_SIGNING_ALLOWED=NO` to the Sandbox run path.
+
 ## UI Smoke
 
 Use fixed launch arguments or scripts that open windows and capture screenshots.
@@ -84,5 +90,7 @@ Before release, run:
 3. Full Xcode tests.
 4. Debug build.
 5. UI smoke screenshots for changed user-facing surfaces.
-6. Manual checks for real permissions, purchases, platform integration, and
-   recovery paths.
+6. For paid apps, verify the Debug bundle has a valid Apple Development
+   signature and uses the expected `appl_` key.
+7. Manual checks for Sandbox purchase/Restore, real permissions, platform
+   integration, and recovery paths.

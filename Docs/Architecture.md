@@ -96,12 +96,21 @@ Paid products are compile-time variants generated from the Starter. They add
 There is no runtime `isPaidApp` switch and no mock entitlement state in the free
 target.
 
+For Apple paid profiles, Debug is an Apple Sandbox build rather than a
+RevenueCat Test Store build. Debug and Release both consume the app's `appl_`
+public SDK key; Development signing and Apple's receipt environment distinguish
+Sandbox from Production. The generated app owns ignored local key injection,
+the final-bundle key/Bundle ID guard, and a signed Debug build-and-run entrypoint.
+Commerce Kit remains environment-neutral and the free Starter remains
+commerce-free.
+
 ## Verification Boundary
 
 - Pure app-owned rules: focused unit or CLI tests when such rules exist.
 - Composition and Feature wiring: Xcode tests.
 - Settings, Onboarding, About, and MenuBar presentation: real-route UI smoke.
-- Permissions, purchases, signing, and notarization: manual release smoke.
+- Sandbox purchase/restore and release distribution: manual smoke; Debug code
+  signing and final-bundle key injection are automated build/run guards.
 
 The current repository has Xcode tests for menu mapping and composition-owned
 Feature coordinators. The generator and screenshot UI-smoke pipeline remain

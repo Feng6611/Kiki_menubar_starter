@@ -40,6 +40,13 @@ Boundary values:
 - `Manual`: behavior that depends on real permissions, purchases, input
   interception, or fragile system state.
 
+For a generated Apple paid app, the default Debug proof is a real Apple
+Development-signed Sandbox build using its `appl_` key. The run script must fail
+for `test_`, unsigned, or ad-hoc products and must verify the final Bundle ID and
+Info.plist injection before launch. Do not automate the purchase confirmation;
+manually verify purchase and Restore with a Sandbox Apple Account and confirm
+the transaction in RevenueCat Sandbox data.
+
 ## Default Commands
 
 Use commands from the product app's `AGENTS.md` first. A typical Kiki-based app
